@@ -1,3 +1,4 @@
 pygments
 pymdown-extensions
 mkdocs-material
+markdown-i18n
