@@ -73,7 +73,7 @@ A aplicação deve ser instalada em um dispositivo com um sistema operacional su
 * Windows Vista e superiores (ambas versões 32 e 64 bit)
 * Windows Server 2008 e superiores (ambas versões 32 e 64 bit)
 
-Dispositivos Windows devem ter .NET Framework 3.5 ou acima instalados.
+Dispositivos Windows devem ter .NET Framework 4.5 ou acima instalados.
 
 A aplicação pode realizar backups de arquivos que estão abertos por outros processos, no Windows isto é realizado por meio do VSS. Para criar um snapshot VSS, é necessário instalar componentes C++ Run-time que podem ser encontrados [clicando aqui](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
 
