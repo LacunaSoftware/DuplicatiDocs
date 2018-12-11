@@ -18,8 +18,8 @@ theme:
   name: 'material'
   language: 'pt'
   palette:
-    primary: 'blue'
-    accent: 'blue'
+    primary: 'cyan'
+    accent: 'cyan'
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
