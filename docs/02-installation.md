@@ -1,4 +1,6 @@
-## Duplicati components
+# Instalação
+
+## Componentes da Aplicação
 
 Before installing Duplicati, you should know how the different components relate to each other and how they can be configured. This makes it easier to decide how the software can be installed the way that matches your needs. The main components are:
 
