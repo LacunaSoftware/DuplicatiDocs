@@ -1,10 +1,9 @@
 
-
 # Project information
-site_name: "Manual do Módulo Agente do Backup e-notariado"
-site_description: 'Documentação para o Backup e-notariado'
+site_name: Manual do Módulo Agente do Backup e-notariado
+site_description: Documentação para o Backup e-notariado
 site_author: ''
-site_url: 'https://backup.e-notariado.org.br/'
+site_url: https://backup.e-notariado.org.br/
 
 # Repository
 # repo_name: 'kees-z/DuplicatiDocs'
@@ -15,18 +14,18 @@ site_url: 'https://backup.e-notariado.org.br/'
 
 # Configuration
 theme:
-  name: 'material'
-  language: 'pt'
-  palette:
-    primary: 'cyan'
-    accent: 'cyan'
-  font:
-    text: 'Roboto'
-    code: 'Roboto Mono'
-  logo: 'favicon-original.png'
-  favicon: 'favicon.ico'
-  feature:
-    tabs: false
+    name: mkdocs
+    language: pt
+    palette:
+        primary: cyan
+        accent: cyan
+    font:
+        text: Roboto
+        code: Roboto Mono
+    logo: favicon-original.png
+    favicon: favicon.ico
+    feature:
+        tabs: false
 
 # Customization
 # extra:
@@ -47,34 +46,38 @@ theme:
 
 # Google Analytics
 google_analytics:
-  - 'UA-XXXXXXXX-X'
-  - 'auto'
+  - UA-XXXXXXXX-X
+  - auto
 
 # Extensions
 markdown_extensions:
   - admonition
   - codehilite:
-      guess_lang: false
+        guess_lang: false
   - toc:
-      permalink: true
+        permalink: true
 
 
 
 pages:
-    - Home: index.md
-    - Manual:
-        - Introdução: 01-introduction.md
-        - Instalação: 02-installation.md
-        - Usando a Interface Gráfica de Usuário: "03-using-the-graphical-user-interface.md"
-        - Usando o Módulo Agente pela linha de comando: "04-using-duplicati-from-the-command-line.md"
-        - Provedores de Armazenamento: "05-storage-providers.md"
-        - Opções Avançadas: "06-advanced-options.md"
-        - Outras utilidades da linha de comando: "07-other-command-line-utilities.md"
-        - Recuperação após desastres: "08-disaster-recovery.md"
-    - Artigos:
-        - "Como o processo de backup funciona": "appendix-a-how-the-backup-process-works.md"
-        - "Como o processo de restauração funciona": "appendix-b-how-the-restore-process-works.md"
-        - "Escolhendo tamanhos corretos": "appendix-c-choosing-sizes-in-duplicati.md"
-        - "Filtros": "appendix-d-filters.md"
+  - Home: index.md
+  - Manual:
+      - Introdução: 01-introduction.md
+      - Instalação: 02-installation.md
+      - Usando a Interface Gráfica de Usuário: 03-using-the-graphical-user-interface.md
+      - Usando o Módulo Agente pela linha de comando: 04-using-duplicati-from-the-command-line.md
+      - Provedores de Armazenamento: 05-storage-providers.md
+      - Opções Avançadas: 06-advanced-options.md
+      - Outras utilidades da linha de comando: 07-other-command-line-utilities.md
+      - Recuperação após desastres: 08-disaster-recovery.md
+  - Artigos:
+      - Como o processo de backup funciona: appendix-a-how-the-backup-process-works.md
+      - Como o processo de restauração funciona: appendix-b-how-the-restore-process-works.md
+      - Escolhendo tamanhos corretos: appendix-c-choosing-sizes-in-duplicati.md
+      - Filtros: appendix-d-filters.md
         #- "How We Get Along With OAuth": "appendix-e-how-we-get-along-with-oauth.md"
-    - Licença: "appendix-f-license-agreement.md"
+  - Licença: appendix-f-license-agreement.md
+extra_css:
+  - css\version-select.css
+extra_javascript:
+  - js\version-select.js
