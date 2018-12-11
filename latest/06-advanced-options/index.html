@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://backup.e-notariado.org.br/06-advanced-options/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Opções Avançadas - Manual do Módulo Agente do Backup e-notariado</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-XXXXXXXX-X', 'auto');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">Manual do Módulo Agente do Backup e-notariado</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../01-introduction/">Introdução</a>
+</li>
+                                    
+<li >
+    <a href="../02-installation/">Instalação</a>
+</li>
+                                    
+<li >
+    <a href="../03-using-the-graphical-user-interface/">Usando a Interface Gráfica de Usuário</a>
+</li>
+                                    
+<li >
+    <a href="../04-using-duplicati-from-the-command-line/">Usando o Módulo Agente pela linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../05-storage-providers/">Provedores de Armazenamento</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Opções Avançadas</a>
+</li>
+                                    
+<li >
+    <a href="../07-other-command-line-utilities/">Outras utilidades da linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../08-disaster-recovery/">Recuperação após desastres</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Artigos <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../appendix-a-how-the-backup-process-works/">Como o processo de backup funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-b-how-the-restore-process-works/">Como o processo de restauração funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-c-choosing-sizes-in-duplicati/">Escolhendo tamanhos corretos</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-d-filters/">Filtros</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../appendix-f-license-agreement/">Licença</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../05-storage-providers/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../07-other-command-line-utilities/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#core-options">Core options</a></li>
+            <li><a href="#allow-full-removal">allow-full-removal</a></li>
+            <li><a href="#allow-missing-source">allow-missing-source</a></li>
+            <li><a href="#allow-passphrase">allow-passphrase</a></li>
+            <li><a href="#allow-sleep">allow-sleep</a></li>
+            <li><a href="#all-versions">all-versions</a></li>
+            <li><a href="#asynchronous-upload-folder">asynchronous-upload-folder</a></li>
+            <li><a href="#asynchronous-upload-limit">asynchronous-upload-limit</a></li>
+            <li><a href="#auto-cleanup">auto-cleanup</a></li>
+            <li><a href="#auto-update">auto-update</a></li>
+            <li><a href="#auto-vacuum">auto-vacuum</a></li>
+            <li><a href="#backup-name">backup-name</a></li>
+            <li><a href="#backup-test-samples">backup-test-samples</a></li>
+            <li><a href="#block-hash-algorithm">block-hash-algorithm</a></li>
+            <li><a href="#blocksize">blocksize</a></li>
+            <li><a href="#changed-files">changed-files</a></li>
+            <li><a href="#check-filetime-only">check-filetime-only</a></li>
+            <li><a href="#compression-extension-file">compression-extension-file</a></li>
+            <li><a href="#compression-module">compression-module</a></li>
+            <li><a href="#concurrency-block-hashers">concurrency-block-hashers</a></li>
+            <li><a href="#concurrency-compressors">concurrency-compressors</a></li>
+            <li><a href="#concurrency-max-threads">concurrency-max-threads</a></li>
+            <li><a href="#console-log-filter">console-log-filter</a></li>
+            <li><a href="#console-log-level">console-log-level</a></li>
+            <li><a href="#control-files">control-files</a></li>
+            <li><a href="#dblock-size">dblock-size</a></li>
+            <li><a href="#dbpath">dbpath</a></li>
+            <li><a href="#debug-output">debug-output</a></li>
+            <li><a href="#debug-retry-errors">debug-retry-errors</a></li>
+            <li><a href="#default-filters">default-filters</a></li>
+            <li><a href="#deleted-files">deleted-files</a></li>
+            <li><a href="#disable-autocreate-folder">disable-autocreate-folder</a></li>
+            <li><a href="#disable-filepath-cache">disable-filepath-cache</a></li>
+            <li><a href="#disable-filetime-check">disable-filetime-check</a></li>
+            <li><a href="#disable-on-battery">disable-on-battery</a></li>
+            <li><a href="#disable-module">disable-module</a></li>
+            <li><a href="#disable-piped-streaming">disable-piped-streaming</a></li>
+            <li><a href="#disable-streaming-transfers">disable-streaming-transfers</a></li>
+            <li><a href="#disable-synthetic-filelist">disable-synthetic-filelist</a></li>
+            <li><a href="#disable-time-tolerance">disable-time-tolerance</a></li>
+            <li><a href="#dont-compress-restore-paths">dont-compress-restore-paths</a></li>
+            <li><a href="#dont-read-manifests">dont-read-manifests</a></li>
+            <li><a href="#dry-run">dry-run</a></li>
+            <li><a href="#enable-module">enable-module</a></li>
+            <li><a href="#encryption-module">encryption-module</a></li>
+            <li><a href="#exclude">exclude</a></li>
+            <li><a href="#exclude-empty-folders">exclude-empty-folders</a></li>
+            <li><a href="#exclude-files-attributes">exclude-files-attributes</a></li>
+            <li><a href="#file-hash-algorithm">file-hash-algorithm</a></li>
+            <li><a href="#file-read-buffer-size">file-read-buffer-size</a></li>
+            <li><a href="#force-locale">force-locale</a></li>
+            <li><a href="#full-block-verification">full-block-verification</a></li>
+            <li><a href="#full-remote-verification">full-remote-verification</a></li>
+            <li><a href="#full-result">full-result</a></li>
+            <li><a href="#hardlink-policy">hardlink-policy</a></li>
+            <li><a href="#ignore-filenames">ignore-filenames</a></li>
+            <li><a href="#include">include</a></li>
+            <li><a href="#index-file-policy">index-file-policy</a></li>
+            <li><a href="#keep-time">keep-time</a></li>
+            <li><a href="#keep-versions">keep-versions</a></li>
+            <li><a href="#list-folder-contents">list-folder-contents</a></li>
+            <li><a href="#list-prefix-only">list-prefix-only</a></li>
+            <li><a href="#list-sets-only">list-sets-only</a></li>
+            <li><a href="#list-verify-uploads">list-verify-uploads</a></li>
+            <li><a href="#log-file">log-file</a></li>
+            <li><a href="#log-file-log-filter">log-file-log-filter</a></li>
+            <li><a href="#log-file-log-level">log-file-log-level</a></li>
+            <li><a href="#log-level">log-level</a></li>
+            <li><a href="#log-retention">log-retention</a></li>
+            <li><a href="#no-auto-compact">no-auto-compact</a></li>
+            <li><a href="#no-backend-verification">no-backend-verification</a></li>
+            <li><a href="#no-connection-reuse">no-connection-reuse</a></li>
+            <li><a href="#no-encryption">no-encryption</a></li>
+            <li><a href="#no-local-blocks">no-local-blocks</a></li>
+            <li><a href="#no-local-db">no-local-db</a></li>
+            <li><a href="#number-of-retries">number-of-retries</a></li>
+            <li><a href="#overwrite">overwrite</a></li>
+            <li><a href="#parameters-file">parameters-file</a></li>
+            <li><a href="#passphrase">passphrase</a></li>
+            <li><a href="#patch-with-local-blocks">patch-with-local-blocks</a></li>
+            <li><a href="#prefix">prefix</a></li>
+            <li><a href="#quiet-console">quiet-console</a></li>
+            <li><a href="#quota-size">quota-size</a></li>
+            <li><a href="#repair-only-paths">repair-only-paths</a></li>
+            <li><a href="#restore-path">restore-path</a></li>
+            <li><a href="#restore-permissions">restore-permissions</a></li>
+            <li><a href="#restore-symlink-metadata">restore-symlink-metadata</a></li>
+            <li><a href="#retention-policy">retention-policy</a></li>
+            <li><a href="#retry-delay">retry-delay</a></li>
+            <li><a href="#skip-file-hash-checks">skip-file-hash-checks</a></li>
+            <li><a href="#skip-files-larger-than">skip-files-larger-than</a></li>
+            <li><a href="#skip-metadata">skip-metadata</a></li>
+            <li><a href="#skip-restore-verification">skip-restore-verification</a></li>
+            <li><a href="#small-file-max-count">small-file-max-count</a></li>
+            <li><a href="#small-file-size">small-file-size</a></li>
+            <li><a href="#snapshot-policy">snapshot-policy</a></li>
+            <li><a href="#store-metadata">store-metadata</a></li>
+            <li><a href="#symlink-policy">symlink-policy</a></li>
+            <li><a href="#synchronous-upload">synchronous-upload</a></li>
+            <li><a href="#tempdir">tempdir</a></li>
+            <li><a href="#thread-priority">thread-priority</a></li>
+            <li><a href="#threshold">threshold</a></li>
+            <li><a href="#throttle-download">throttle-download</a></li>
+            <li><a href="#throttle-upload">throttle-upload</a></li>
+            <li><a href="#time">time</a></li>
+            <li><a href="#unittest-mode">unittest-mode</a></li>
+            <li><a href="#upload-unchanged-backups">upload-unchanged-backups</a></li>
+            <li><a href="#upload-verification-file">upload-verification-file</a></li>
+            <li><a href="#use-background-io-priority">use-background-io-priority</a></li>
+            <li><a href="#use-block-cache">use-block-cache</a></li>
+            <li><a href="#usn-policy">usn-policy</a></li>
+            <li><a href="#verbose">verbose</a></li>
+            <li><a href="#version">version</a></li>
+            <li><a href="#vss-exclude-writers">vss-exclude-writers</a></li>
+            <li><a href="#vss-use-mapping">vss-use-mapping</a></li>
+        <li class="main "><a href="#http-options">HTTP options</a></li>
+            <li><a href="#disable-expect100-continue">disable-expect100-continue</a></li>
+            <li><a href="#disable-nagling">disable-nagling</a></li>
+            <li><a href="#accept-specified-ssl-hash">accept-specified-ssl-hash</a></li>
+            <li><a href="#accept-any-ssl-certificate">accept-any-ssl-certificate</a></li>
+            <li><a href="#oauth-url">oauth-url</a></li>
+            <li><a href="#allowed-ssl-versions">allowed-ssl-versions</a></li>
+            <li><a href="#http-operation-timeout">http-operation-timeout</a></li>
+            <li><a href="#http-readwrite-timeout">http-readwrite-timeout</a></li>
+            <li><a href="#http-enable-buffering">http-enable-buffering</a></li>
+        <li class="main "><a href="#scripting-options">Scripting options</a></li>
+            <li><a href="#run-script-before">run-script-before</a></li>
+            <li><a href="#run-script-after">run-script-after</a></li>
+            <li><a href="#run-script-before-required">run-script-before-required</a></li>
+            <li><a href="#run-script-timeout">run-script-timeout</a></li>
+        <li class="main "><a href="#reporting-options">Reporting options</a></li>
+            <li><a href="#send-http-url">send-http-url</a></li>
+            <li><a href="#send-http-message">send-http-message</a></li>
+            <li><a href="#send-http-message-parameter-name">send-http-message-parameter-name</a></li>
+            <li><a href="#send-http-extra-parameters">send-http-extra-parameters</a></li>
+            <li><a href="#send-http-level">send-http-level</a></li>
+            <li><a href="#send-http-any-operation">send-http-any-operation</a></li>
+            <li><a href="#send-mail-to">send-mail-to</a></li>
+            <li><a href="#send-mail-from">send-mail-from</a></li>
+            <li><a href="#send-mail-subject">send-mail-subject</a></li>
+            <li><a href="#send-mail-body">send-mail-body</a></li>
+            <li><a href="#send-mail-url">send-mail-url</a></li>
+            <li><a href="#send-mail-username">send-mail-username</a></li>
+            <li><a href="#send-mail-password">send-mail-password</a></li>
+            <li><a href="#send-mail-level">send-mail-level</a></li>
+            <li><a href="#send-mail-any-operation">send-mail-any-operation</a></li>
+            <li><a href="#send-xmpp-to">send-xmpp-to</a></li>
+            <li><a href="#send-xmpp-message">send-xmpp-message</a></li>
+            <li><a href="#send-xmpp-username">send-xmpp-username</a></li>
+            <li><a href="#send-xmpp-password">send-xmpp-password</a></li>
+            <li><a href="#send-xmpp-level">send-xmpp-level</a></li>
+            <li><a href="#send-xmpp-any-operation">send-xmpp-any-operation</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>For each Duplicati command you have to specify a number of arguments. When performing a backup, you must supply the location and credentials for the backup files and one or more source folders. Optionally, you can specify one or more advanced options. These options will give you more control to how the command will be executed. Also additional features, like reporting, can be configured by supplying some advanced options.</p>
+<p>Those additional options should only be used with care. For normal operation none of them should ever be required. Use this alphabetical list as a reference to find the advanced options that fit your needs.</p>
+<h2 id="core-options">Core options<a class="headerlink" href="#core-options" title="Permanent link">&para;</a></h2>
+<p>These options can be used to influence the behavior of the Duplicati backup engine.</p>
+<h3 id="allow-full-removal">allow-full-removal<a class="headerlink" href="#allow-full-removal" title="Permanent link">&para;</a></h3>
+<p><code>--allow-full-removal = false</code> <br />
+By default, the last fileset cannot be removed. This is a safeguard to make sure that all remote data is not deleted by a configuration mistake. Use this flag to disable that protection, such that all filesets can be deleted.</p>
+<h3 id="allow-missing-source">allow-missing-source<a class="headerlink" href="#allow-missing-source" title="Permanent link">&para;</a></h3>
+<p><code>--allow-missing-source = false</code><br />
+Use this option to continue even if some source entries are missing.</p>
+<h3 id="allow-passphrase">allow-passphrase<a class="headerlink" href="#allow-passphrase" title="Permanent link">&para;</a></h3>
+<p><code>--allow-passphrase-change = false</code><br />
+Use this option to allow the passphrase to change, note that this option is not permitted for a backup or repair operation.</p>
+<h3 id="allow-sleep">allow-sleep<a class="headerlink" href="#allow-sleep" title="Permanent link">&para;</a></h3>
+<p><code>--allow-sleep = false</code><br />
+Allow system to enter sleep power modes for inactivity during backup/restore operations (Windows/OSX only).</p>
+<h3 id="all-versions">all-versions<a class="headerlink" href="#all-versions" title="Permanent link">&para;</a></h3>
+<p><code>--all-versions = false</code><br />
+When searching for files, only the most recent backup is searched. Use this option to show all previous versions too.</p>
+<h3 id="asynchronous-upload-folder">asynchronous-upload-folder<a class="headerlink" href="#asynchronous-upload-folder" title="Permanent link">&para;</a></h3>
+<p><code>--asynchronous-upload-folder = C:\Users\User\AppData\Local\Temp\</code>  <br />
+The pre-generated volumes will be placed into the temporary folder by default, this option can set a different folder for placing the temporary volumes, despite the name, this also works for synchronous runs.</p>
+<h3 id="asynchronous-upload-limit">asynchronous-upload-limit<a class="headerlink" href="#asynchronous-upload-limit" title="Permanent link">&para;</a></h3>
+<p><code>--asynchronous-upload-limit = 4</code><br />
+When performing asynchronous uploads, Duplicati will create volumes that can be uploaded. To prevent Duplicati from generating too many volumes, this option limits the number of pending uploads. Set to zero to disable the limit</p>
+<h3 id="auto-cleanup">auto-cleanup<a class="headerlink" href="#auto-cleanup" title="Permanent link">&para;</a></h3>
+<p><code>--auto-cleanup = false</code><br />
+If a backup is interrupted there will likely be partial files present on the backend. Using this flag, Duplicati will automatically remove such files when encountered.</p>
+<h3 id="auto-update">auto-update<a class="headerlink" href="#auto-update" title="Permanent link">&para;</a></h3>
+<p><code>--auto-update = false</code><br />
+Set this option if you prefer to have the commandline version automatically update</p>
+<h3 id="auto-vacuum">auto-vacuum<a class="headerlink" href="#auto-vacuum" title="Permanent link">&para;</a></h3>
+<p><code>--auto-vacuum = false</code><br />
+Some operations that manipulate the local database leave unused entries behind. These entries are not deleted from a hard drive until a VACUUM operation is run. This operation saves disk space in the long run but needs to temporarily create a copy of all valid entries in the database. Setting this to true will allow Duplicati to perform VACUUM operations at its discretion.</p>
+<h3 id="backup-name">backup-name<a class="headerlink" href="#backup-name" title="Permanent link">&para;</a></h3>
+<p><code>--backup-name = Duplicati.CommandLine</code><br />
+A display name that is attached to this backup. Can be used to identify the backup when sending mail or running scripts.</p>
+<h3 id="backup-test-samples">backup-test-samples<a class="headerlink" href="#backup-test-samples" title="Permanent link">&para;</a></h3>
+<p><code>--backup-test-samples = 1</code><br />
+After a backup is completed, some files are selected for verification on the remote backend. Use this option to change how many. If this value is set to 0 or the option --no-backend-verification is set, no remote files are verified</p>
+<h3 id="block-hash-algorithm">block-hash-algorithm<a class="headerlink" href="#block-hash-algorithm" title="Permanent link">&para;</a></h3>
+<p><code>--block-hash-algorithm = SHA256</code><br />
+This is a very advanced option! This option can be used to select a block hash algorithm with smaller or larger hash size, for performance or storage space reasons.</p>
+<h3 id="blocksize">blocksize<a class="headerlink" href="#blocksize" title="Permanent link">&para;</a></h3>
+<p><code>--blocksize = 100kb</code><br />
+The block size determines how files are fragmented. Choosing a large value will cause a larger overhead on file changes, choosing a small value will cause a large overhead on storage of file lists. Note that the value cannot be changed after remote files are created.</p>
+<h3 id="changed-files">changed-files<a class="headerlink" href="#changed-files" title="Permanent link">&para;</a></h3>
+<p><code>--changed-files</code> 
+This option can be used to limit the scan to only files that are known to have changed. This is usually only activated in combination with a filesystem watcher that keeps track of file changes.</p>
+<h3 id="check-filetime-only">check-filetime-only<a class="headerlink" href="#check-filetime-only" title="Permanent link">&para;</a></h3>
+<p><code>--check-filetime-only = false</code><br />
+This flag instructs Duplicati to not look at metadata or filesize when deciding to scan a file for changes. Use this option if you have a large number of files and notice that the scanning takes a long time with unmodified files.</p>
+<h3 id="compression-extension-file">compression-extension-file<a class="headerlink" href="#compression-extension-file" title="Permanent link">&para;</a></h3>
+<p><code>--compression-extension-file = C:\Program Files\Duplicati 2\default_compressed_extensions.txt</code><br />
+This property can be used to point to a text file where each line contains a file extension that indicates a non-compressible file. Files that have an extension found in the file will not be compressed, but simply stored in the archive. The file format ignores any lines that do not start with a period, and considers a space to indicate the end of the extension. A default file is supplied, that also serves as an example. The default file is placed in <code>C:\Program Files\Duplicati 2\default_compressed_extensions.txt</code>.</p>
+<h3 id="compression-module">compression-module<a class="headerlink" href="#compression-module" title="Permanent link">&para;</a></h3>
+<p><code>--compression-module = zip</code><br />
+Duplicati supports pluggable compression modules. Use this option to select a module to use for compression. This is only applied when creating new volumes, when reading an existing file, the filename is used to select the compression module.</p>
+<h3 id="concurrency-block-hashers">concurrency-block-hashers<a class="headerlink" href="#concurrency-block-hashers" title="Permanent link">&para;</a></h3>
+<p><code>--concurrency-block-hashers = 2</code><br />
+Use this option to set the number of processes that perform hashing of data.</p>
+<h3 id="concurrency-compressors">concurrency-compressors<a class="headerlink" href="#concurrency-compressors" title="Permanent link">&para;</a></h3>
+<p><code>--concurrency-compressors = 2</code><br />
+Use this option to set the number of processes that perform compression of output data.</p>
+<h3 id="concurrency-max-threads">concurrency-max-threads<a class="headerlink" href="#concurrency-max-threads" title="Permanent link">&para;</a></h3>
+<p><code>--concurrency-max-threads = 0</code><br />
+Use this option to set the maximum number of threads used. Setting this value to zero or less will dynamically balance the number of active threads to fit the hardware.</p>
+<h3 id="console-log-filter">console-log-filter<a class="headerlink" href="#console-log-filter" title="Permanent link">&para;</a></h3>
+<p><code>--console-log-filter</code><br />
+This option accepts filters that removes or includes messages regardless of their log level. Multiple filters are supported by separating with :<code>.</code>
+Filters are matched against the log tag and assumed to be including, unless they start with <code>-</code>. Regular expressions are supported within hard braces. Example: <code>+Path*:+*Mail*:-[.*DNS]</code></p>
+<h3 id="console-log-level">console-log-level<a class="headerlink" href="#console-log-level" title="Permanent link">&para;</a></h3>
+<p><code>--console-log-level = Warning</code><br />
+Console information level</p>
+<h3 id="control-files">control-files<a class="headerlink" href="#control-files" title="Permanent link">&para;</a></h3>
+<p><code>--control-files = false</code><br />
+Use control files.</p>
+<h3 id="dblock-size">dblock-size<a class="headerlink" href="#dblock-size" title="Permanent link">&para;</a></h3>
+<p><code>--dblock-size = 50mb</code><br />
+This option can change the maximum size of dblock files. Changing the size can be useful if the backend has a limit on the size of each individual file.</p>
+<h3 id="dbpath">dbpath<a class="headerlink" href="#dbpath" title="Permanent link">&para;</a></h3>
+<p><code>--dbpath</code><br />
+Path to the file containing the local cache of the remote file database.</p>
+<h3 id="debug-output">debug-output<a class="headerlink" href="#debug-output" title="Permanent link">&para;</a></h3>
+<p><code>--debug-output = false</code><br />
+Activating this option will make some error messages more verbose, which may help you track down a particular issue.</p>
+<h3 id="debug-retry-errors">debug-retry-errors<a class="headerlink" href="#debug-retry-errors" title="Permanent link">&para;</a></h3>
+<p><code>--debug-retry-errors = false</code><br />
+When an error occurs, Duplicati will silently retry, and only report the number of retries. Enable this option to have the error messages displayed when a retry is performed.</p>
+<h3 id="default-filters">default-filters<a class="headerlink" href="#default-filters" title="Permanent link">&para;</a></h3>
+<p><code>--default-filters</code><br />
+Exclude files that match the given filter sets. Which default filter sets should be used. Valid sets are <code>Windows</code>, <code>OSX</code>, <code>Linux</code> and <code>All</code>. If this parameter is set with no value, the set for the current operating system will be used.</p>
+<h3 id="deleted-files">deleted-files<a class="headerlink" href="#deleted-files" title="Permanent link">&para;</a></h3>
+<p><code>--deleted-files</code><br />
+This option can be used to supply a list of deleted files. This option will be ignored unless the option <code>--changed-files</code> is also set.</p>
+<h3 id="disable-autocreate-folder">disable-autocreate-folder<a class="headerlink" href="#disable-autocreate-folder" title="Permanent link">&para;</a></h3>
+<p><code>--disable-autocreate-folder = false</code><br />
+If Duplicati detects that the target folder is missing, it will create it automatically. Activate this option to prevent automatic folder creation.</p>
+<h3 id="disable-filepath-cache">disable-filepath-cache<a class="headerlink" href="#disable-filepath-cache" title="Permanent link">&para;</a></h3>
+<p><code>--disable-filepath-cache = true</code><br />
+This option can be used to reduce the memory footprint by not keeping paths and modification timestamps in memory.</p>
+<h3 id="disable-filetime-check">disable-filetime-check<a class="headerlink" href="#disable-filetime-check" title="Permanent link">&para;</a></h3>
+<p><code>--disable-filetime-check = false</code><br />
+The operating system keeps track of the last time a file was written. Using this information, Duplicati can quickly determine if the file has been modified. If some application deliberately modifies this information, Duplicati won't work correctly unless this flag is set.</p>
+<h3 id="disable-on-battery">disable-on-battery<a class="headerlink" href="#disable-on-battery" title="Permanent link">&para;</a></h3>
+<p><code>--disable-on-battery = false</code><br />
+When this flag is enabled, a scheduled backup will not run if the system is detected to be running on battery power (manual or command line backups will still be run).  If the detected power source is mains (i.e., AC) or unknown, then scheduled backups will proceed as normal.</p>
+<h3 id="disable-module">disable-module<a class="headerlink" href="#disable-module" title="Permanent link">&para;</a></h3>
+<p><code>--disable-module</code><br />
+Supply one or more module names, separated by commas to unload them.</p>
+<h3 id="disable-piped-streaming">disable-piped-streaming<a class="headerlink" href="#disable-piped-streaming" title="Permanent link">&para;</a></h3>
+<p><code>--disable-piped-streaming = false</code><br />
+Use this option to disable multithreaded handling of up- and downloads, that can significantly speed up backend operations depending on the hardware you're running on and the transfer rate of your backend.</p>
+<h3 id="disable-streaming-transfers">disable-streaming-transfers<a class="headerlink" href="#disable-streaming-transfers" title="Permanent link">&para;</a></h3>
+<p><code>--disable-streaming-transfers = false</code><br />
+Enabling this option will disallow usage of the streaming interface, which means that transfer progress bars will not show, and bandwidth throttle settings will be ignored.</p>
+<h3 id="disable-synthetic-filelist">disable-synthetic-filelist<a class="headerlink" href="#disable-synthetic-filelist" title="Permanent link">&para;</a></h3>
+<p><code>--disable-synthetic-filelist = false</code><br />
+If Duplicati detects that the previous backup did not complete, it will generate a filelist that is a merge of the last completed backup and the contents that were uploaded in the incomplete backup session.</p>
+<h3 id="disable-time-tolerance">disable-time-tolerance<a class="headerlink" href="#disable-time-tolerance" title="Permanent link">&para;</a></h3>
+<p><code>--disable-time-tolerance = false</code><br />
+When matching timestamps, Duplicati will adjust the times by a small fraction to ensure that minor time differences do not cause unexpected updates. If the option <code>--keep-time</code> is set to keep a week of backups, and the backup is made the same time each week, it is possible that the clock drifts slightly, such that full week has just passed, causing Duplicati to delete the older backup earlier than expected. To avoid this, Duplicati inserts a 1% tolerance (max 1 hour). Use this option to disable the tolerance, and use strict time checking.</p>
+<h3 id="dont-compress-restore-paths">dont-compress-restore-paths<a class="headerlink" href="#dont-compress-restore-paths" title="Permanent link">&para;</a></h3>
+<p><code>--dont-compress-restore-paths = false</code><br />
+When restore a subset of a backup into a new folder, the shortest possible path is used to avoid generating deep paths with empty folders. Use this flag to skip this compression, such that the entire original folder structure is preserved, including upper level empty folders.</p>
+<h3 id="dont-read-manifests">dont-read-manifests<a class="headerlink" href="#dont-read-manifests" title="Permanent link">&para;</a></h3>
+<p><code>--dont-read-manifests = false</code><br />
+This option will make sure the contents of the manifest file are not read. This also implies that file hashes are not checked either. Use only for disaster recovery.</p>
+<h3 id="dry-run">dry-run<a class="headerlink" href="#dry-run" title="Permanent link">&para;</a></h3>
+<p><code>--dry-run = false</code><br />
+This option can be used to experiment with different settings and observe the outcome without changing actual files.</p>
+<h3 id="enable-module">enable-module<a class="headerlink" href="#enable-module" title="Permanent link">&para;</a></h3>
+<p><code>--enable-module</code><br />
+Supply one or more module names, separated by commas to load them.</p>
+<h3 id="encryption-module">encryption-module<a class="headerlink" href="#encryption-module" title="Permanent link">&para;</a></h3>
+<p><code>--encryption-module = aes</code><br />
+Duplicati supports pluggable encryption modules. Use this option to select a module to use for encryption. This is only applied when creating new volumes, when reading an existing file, the filename is used to select the encryption module.</p>
+<h3 id="exclude">exclude<a class="headerlink" href="#exclude" title="Permanent link">&para;</a></h3>
+<p><code>--exclude</code><br />
+Exclude files that match this filter. The special characterc <code>*</code> means any number of character, and the special character <code>?</code> means any single character, use <code>*.txt</code> to exclude all files with a txt extension. Regular expressions are also supported and can be supplied by using hard braces, i.e. <code>[.*\.txt]</code>.</p>
+<h3 id="exclude-empty-folders">exclude-empty-folders<a class="headerlink" href="#exclude-empty-folders" title="Permanent link">&para;</a></h3>
+<p><code>--exclude-empty-folders = false</code><br />
+Use this option to remove all empty folders from a backup.</p>
+<h3 id="exclude-files-attributes">exclude-files-attributes<a class="headerlink" href="#exclude-files-attributes" title="Permanent link">&para;</a></h3>
+<p><code>--exclude-files-attributes</code><br />
+Use this option to exclude files with certain attributes. Use a comma separated list of attribute names to specify more than one. Possible values are: <code>ReadOnly</code>, <code>Hidden</code>, <code>System</code>, <code>Directory</code>, <code>Archive</code>, <code>Device</code>, <code>Normal</code>, <code>Temporary</code>, <code>SparseFile</code>, <code>ReparsePoint</code>, <code>Compressed</code>, <code>Offline</code>, <code>NotContentIndexed</code>, <code>Encrypted</code>, <code>IntegrityStream</code>, <code>NoScrubData</code>.</p>
+<h3 id="file-hash-algorithm">file-hash-algorithm<a class="headerlink" href="#file-hash-algorithm" title="Permanent link">&para;</a></h3>
+<p><code>--file-hash-algorithm = SHA256</code><br />
+This is a very advanced option! This option can be used to select a file hash algorithm with smaller or larger hash size, for performance or storage space reasons.</p>
+<h3 id="file-read-buffer-size">file-read-buffer-size<a class="headerlink" href="#file-read-buffer-size" title="Permanent link">&para;</a></h3>
+<p><code>--file-read-buffer-size = 0kb</code><br />
+Use this size to control how many bytes a read from a file before processing.</p>
+<h3 id="force-locale">force-locale<a class="headerlink" href="#force-locale" title="Permanent link">&para;</a></h3>
+<p><code>--force-locale</code><br />
+By default, your system locale and culture settings will be used. In some cases you may prefer to run with another locale, for example to get messages in another language. This option can be used to set the locale. Supply a blank string to choose the "Invariant Culture".</p>
+<h3 id="full-block-verification">full-block-verification<a class="headerlink" href="#full-block-verification" title="Permanent link">&para;</a></h3>
+<p><code>--full-block-verification = false</code><br />
+Use this option to increase verification by checking the hash of blocks read from a volume before patching restored files with the data.</p>
+<h3 id="full-remote-verification">full-remote-verification<a class="headerlink" href="#full-remote-verification" title="Permanent link">&para;</a></h3>
+<p><code>--full-remote-verification = false</code><br />
+After a backup is completed, some files are selected for verification on the remote backend. Use this option to turn on full verification, which will decrypt the files and examine the insides of each volume, instead of simply verifying the external hash, If the option <code>--no-backend-verification</code> is set, no remote files are verified. This option is automatically set when then verification is performed directly.</p>
+<h3 id="full-result">full-result<a class="headerlink" href="#full-result" title="Permanent link">&para;</a></h3>
+<p>--full-result = false<br />
+Use this option to increase the amount of output generated as the result of the operation, including all filenames.</p>
+<h3 id="hardlink-policy">hardlink-policy<a class="headerlink" href="#hardlink-policy" title="Permanent link">&para;</a></h3>
+<p><code>--hardlink-policy = All</code><br />
+Use this option to handle hardlinks (only works on Linux/OSX). The <code>first</code> option will record a hardlink ID for each hardlink to avoid storing hardlinked paths multiple times. The option <code>all</code> will ignore hardlink information, and treat each hardlink as a unique path. The option <code>none</code> will ignore all hardlinks with more than one link.</p>
+<h3 id="ignore-filenames">ignore-filenames<a class="headerlink" href="#ignore-filenames" title="Permanent link">&para;</a></h3>
+<p><code>--ignore-filenames</code><br />
+Use this option to set a filename, or list of filenames, that indicate exclusion of a folder which contains it. A common use would be to have a file named something like ".nobackup" and place this file into folders that should not be backed up.</p>
+<h3 id="include">include<a class="headerlink" href="#include" title="Permanent link">&para;</a></h3>
+<p><code>--include</code><br />
+Include files that match this filter. The special character <code>*</code> means any number of character, and the special character <code>?</code> means any single character, use <code>*.txt</code> to include all files with a txt extension. Regular expressions are also supported and can be supplied by using hard braces, i.e.<code>[.*\.txt]</code>.</p>
+<h3 id="index-file-policy">index-file-policy<a class="headerlink" href="#index-file-policy" title="Permanent link">&para;</a></h3>
+<p><code>--index-file-policy = Full</code><br />
+The index files are used to limit the need for downloading dblock files when there is no local database present.<br />
+The more information is recorded in the index files, the faster operations can proceed without the database. The tradeoff is that larger index files take up more remote space and which may never be used.</p>
+<h3 id="keep-time">keep-time<a class="headerlink" href="#keep-time" title="Permanent link">&para;</a></h3>
+<p><code>--keep-time</code><br />
+Use this option to set the timespan in which backups are kept.</p>
+<h3 id="keep-versions">keep-versions<a class="headerlink" href="#keep-versions" title="Permanent link">&para;</a></h3>
+<p><code>--keep-versions = 0</code><br />
+Use this option to set number of versions to keep, supply <code>-1</code> to keep all versions.</p>
+<h3 id="list-folder-contents">list-folder-contents<a class="headerlink" href="#list-folder-contents" title="Permanent link">&para;</a></h3>
+<p><code>--list-folder-contents = false</code><br />
+When searching for files, all matching files are returned. Use this option to return only the entries found in the folder specified as filter.</p>
+<h3 id="list-prefix-only">list-prefix-only<a class="headerlink" href="#list-prefix-only" title="Permanent link">&para;</a></h3>
+<p><code>--list-prefix-only = false</code><br />
+When searching for files, all matching files are returned. Use this option to return only the largest common prefix path.</p>
+<h3 id="list-sets-only">list-sets-only<a class="headerlink" href="#list-sets-only" title="Permanent link">&para;</a></h3>
+<p><code>--list-sets-only = false</code><br />
+Use this option to only list filesets and avoid traversing file names and other metadata which slows down the process.</p>
+<h3 id="list-verify-uploads">list-verify-uploads<a class="headerlink" href="#list-verify-uploads" title="Permanent link">&para;</a></h3>
+<p><code>--list-verify-uploads = false</code><br />
+Verify uploads by listing contents.</p>
+<h3 id="log-file">log-file<a class="headerlink" href="#log-file" title="Permanent link">&para;</a></h3>
+<p><code>--log-file</code><br />
+Log internal information.</p>
+<h3 id="log-file-log-filter">log-file-log-filter<a class="headerlink" href="#log-file-log-filter" title="Permanent link">&para;</a></h3>
+<p><code>--log-file-log-filter</code><br />
+This option accepts filters that removes or includes messages regardless of their log level. Multiple filters are supported by separating with :.
+Filters are matched against the log tag and assumed to be including, unless they start with <code>-</code>. Regular expressions are supported within hard braces. Example: <code>+Path*:+*Mail*:-[.*DNS]</code></p>
+<h3 id="log-file-log-level">log-file-log-level<a class="headerlink" href="#log-file-log-level" title="Permanent link">&para;</a></h3>
+<p><code>--log-file-log-level = Warning</code><br />
+Log file information level</p>
+<h3 id="log-level">log-level<a class="headerlink" href="#log-level" title="Permanent link">&para;</a></h3>
+<p><code>--log-level = Warning</code><br />
+Specifies the amount of log information to write into the file specified by <code>--log-file</code>.</p>
+<h3 id="log-retention">log-retention<a class="headerlink" href="#log-retention" title="Permanent link">&para;</a></h3>
+<p><code>--log-retention = 30D</code><br />
+Set the time after which log data will be purged from the database.</p>
+<h3 id="no-auto-compact">no-auto-compact<a class="headerlink" href="#no-auto-compact" title="Permanent link">&para;</a></h3>
+<p><code>--no-auto-compact = false</code><br />
+If a large number of small files are detected during a backup, or wasted space is found after deleting backups, the remote data will be compacted. Use this option to disable such automatic compacting and only compact when running the compact command.</p>
+<h3 id="no-backend-verification">no-backend-verification<a class="headerlink" href="#no-backend-verification" title="Permanent link">&para;</a></h3>
+<p><code>--no-backend-verification = false</code><br />
+If this flag is set, the local database is not compared to the remote filelist on startup. The intended usage for this option is to work correctly in cases where the filelisting is broken or unavailable.</p>
+<h3 id="no-connection-reuse">no-connection-reuse<a class="headerlink" href="#no-connection-reuse" title="Permanent link">&para;</a></h3>
+<p><code>--no-connection-reuse = false</code><br />
+Duplicati will attempt to perform multiple operations on a single connection, as this avoids repeated login attempts, and thus speeds up the process. This option can be used to ensure that each operation is performed on a separate connection.</p>
+<h3 id="no-encryption">no-encryption<a class="headerlink" href="#no-encryption" title="Permanent link">&para;</a></h3>
+<p><code>--no-encryption = false</code><br />
+If you store the backups on a local disk, and prefer that they are kept unencrypted, you can turn of encryption completely by using this switch.</p>
+<h3 id="no-local-blocks">no-local-blocks<a class="headerlink" href="#no-local-blocks" title="Permanent link">&para;</a></h3>
+<p><code>--no-local-blocks = false</code><br />
+Duplicati will attempt to use data from source files to minimize the amount of downloaded data. Use this option to skip this optimization and only use remote data.</p>
+<h3 id="no-local-db">no-local-db<a class="headerlink" href="#no-local-db" title="Permanent link">&para;</a></h3>
+<p><code>--no-local-db = false</code><br />
+When listing contents or when restoring files, the local database can be skipped. This is usually slower, but can be used to verify the actual contents of the remote store.</p>
+<h3 id="number-of-retries">number-of-retries<a class="headerlink" href="#number-of-retries" title="Permanent link">&para;</a></h3>
+<p><code>--number-of-retries = 5</code><br />
+If an upload or download fails, Duplicati will retry a number of times before failing. Use this to handle unstable network connections better.</p>
+<h3 id="overwrite">overwrite<a class="headerlink" href="#overwrite" title="Permanent link">&para;</a></h3>
+<p><code>--overwrite = false</code><br />
+Use this option to overwrite target files when restoring, if this option is not set the files will be restored with a timestamp and a number appended.</p>
+<h3 id="parameters-file">parameters-file<a class="headerlink" href="#parameters-file" title="Permanent link">&para;</a></h3>
+<p><code>--parameters-file</code><br />
+This option can be used to store some or all of the options given to the commandline client. The file must be a plain text file, UTF-8 encoding is preferred. Each line in the file should be of the format <code>--option=value</code>. The special options <code>--source</code> and <code>--target</code> can be used to override the localpath and the remote destination uri, respectively. The options in this file take precedence over the options provided on the commandline. You cannot specify filters in both the file and on the commandline. Instead, you can use the special<code>--replace-filter</code>, <code>--append-filter</code>, or <code>--prepend-filter</code> options to specify filters inside the parameter file. Each filter must be prefixed with either a <code>+</code> or a <code>-</code>, and multiple filters must be joined with <code>;</code>.</p>
+<h3 id="passphrase">passphrase<a class="headerlink" href="#passphrase" title="Permanent link">&para;</a></h3>
+<p><code>--passphrase</code><br />
+Supply a passphrase that Duplicati will use to encrypt the backup volumes, making them unreadable without the passphrase. This variable can also be supplied through the environment variable <code>PASSPHRASE</code>.</p>
+<h3 id="patch-with-local-blocks">patch-with-local-blocks<a class="headerlink" href="#patch-with-local-blocks" title="Permanent link">&para;</a></h3>
+<p><code>--patch-with-local-blocks = false</code><br />
+Enable this option to look into other files on this machine to find existing blocks. This is a fairly slow operation but can limit the size of downloads.</p>
+<h3 id="prefix">prefix<a class="headerlink" href="#prefix" title="Permanent link">&para;</a></h3>
+<p><code>--prefix = duplicate</code><br />
+A string used to prefix the filenames of the remote volumes, can be used to store multiple backups in the same remote folder. The prefix cannot contain a hyphen (<code>-</code>), but can contain all other characters allowed by the remote storage.</p>
+<h3 id="quiet-console">quiet-console<a class="headerlink" href="#quiet-console" title="Permanent link">&para;</a></h3>
+<p><code>--quiet-console = false</code><br />
+If this option is set, progress reports and other messages that would normally go to the console will be redirected to the log.</p>
+<h3 id="quota-size">quota-size<a class="headerlink" href="#quota-size" title="Permanent link">&para;</a></h3>
+<p><code>--quota-size</code><br />
+This value can be used to set a known upper limit on the amount of space a backend has. If the backend reports the size itself, this value is ignored.</p>
+<h3 id="repair-only-paths">repair-only-paths<a class="headerlink" href="#repair-only-paths" title="Permanent link">&para;</a></h3>
+<p><code>--repair-only-paths = false</code><br />
+Use this option to build a searchable local database which only contains path information. This option is usable for quickly building a database to locate certain content without needing to reconstruct all information. The resulting database can be searched, but cannot be used to restore data with.</p>
+<h3 id="restore-path">restore-path<a class="headerlink" href="#restore-path" title="Permanent link">&para;</a></h3>
+<p><code>--restore-path</code><br />
+By default, files will be restored in the source folders, use this option to restore to another folder.</p>
+<h3 id="restore-permissions">restore-permissions<a class="headerlink" href="#restore-permissions" title="Permanent link">&para;</a></h3>
+<p><code>--restore-permissions = false</code><br />
+By default permissions are not restored as they might prevent you from accessing your files. Use this option to restore the permissions as well.</p>
+<h3 id="restore-symlink-metadata">restore-symlink-metadata<a class="headerlink" href="#restore-symlink-metadata" title="Permanent link">&para;</a></h3>
+<p><code>--restore-symlink-metadata = false</code><br />
+If symlink metadata is applied, it will usually mean changing the symlink target, instead of the symlink itself. For this reason, metadata is notapplied to symlinks, but this option can be used to override this, suchthat metadata is applied to symlinks as well.</p>
+<h3 id="retention-policy">retention-policy<a class="headerlink" href="#retention-policy" title="Permanent link">&para;</a></h3>
+<p><code>--retention-policy</code><br />
+Use this option to reduce the number of versions that are kept with increasing version age by deleting most of the old backups. The expected format is a comma separated list of colon separated time frame and interval pairs. For example the value <code>7D:0s,3M:1D,10Y:2M</code> means "For 7 day keep all backups, for 3 months keep one backup per day and for 10 years one backup every 2nd month.</p>
+<h3 id="retry-delay">retry-delay<a class="headerlink" href="#retry-delay" title="Permanent link">&para;</a></h3>
+<p><code>--retry-delay = 10s</code><br />
+After a failed transmission, Duplicati will wait a short period before attempting again. This is useful if the network drops out occasionally during transmissions.</p>
+<h3 id="skip-file-hash-checks">skip-file-hash-checks<a class="headerlink" href="#skip-file-hash-checks" title="Permanent link">&para;</a></h3>
+<p><code>--skip-file-hash-checks = false</code><br />
+If the hash for the volume does not match, Duplicati will refuse to use the backup. Supply this flag to allow Duplicati to proceed anyway.</p>
+<h3 id="skip-files-larger-than">skip-files-larger-than<a class="headerlink" href="#skip-files-larger-than" title="Permanent link">&para;</a></h3>
+<p><code>--skip-files-larger-than</code><br />
+This option allows you to exclude files that are larger than the given value. Use this to prevent backups becoming extremely large.</p>
+<h3 id="skip-metadata">skip-metadata<a class="headerlink" href="#skip-metadata" title="Permanent link">&para;</a></h3>
+<p><code>--skip-metadata = false</code><br />
+Use this option to disable the storage of metadata, such as file timestamps. Disabling metadata storage will speed up the backup and restore operations, but does not affect file size much.</p>
+<h3 id="skip-restore-verification">skip-restore-verification<a class="headerlink" href="#skip-restore-verification" title="Permanent link">&para;</a></h3>
+<p><code>--skip-restore-verification = false</code><br />
+After restoring files, the file hash of all restored files are checked to verify that the restore was successful.<br />
+Use this option to disable the check and avoid waiting for the verification.</p>
+<h3 id="small-file-max-count">small-file-max-count<a class="headerlink" href="#small-file-max-count" title="Permanent link">&para;</a></h3>
+<p><code>--small-file-max-count = 20</code><br />
+To avoid filling the remote storage with small files, this value can force grouping small files. The small volumes will always be combined when they can fill an entire volume.</p>
+<h3 id="small-file-size">small-file-size<a class="headerlink" href="#small-file-size" title="Permanent link">&para;</a></h3>
+<p><code>--small-file-size</code><br />
+When examining the size of a volume in consideration for compacting, a small tolerance value is used, by default 20 percent of the volume size. This ensures that large volumes which may have a few bytes wasted space are not downloaded and rewritten.</p>
+<h3 id="snapshot-policy">snapshot-policy<a class="headerlink" href="#snapshot-policy" title="Permanent link">&para;</a></h3>
+<p><code>--snapshot-policy = off</code><br />
+This setting controls the usage of snapshots, which allows Duplicati to backup files that are locked by other programs. If this is set to <code>off</code>, Duplicati will not attempt to create a disk snapshot. Setting this to <code>auto</code> makes Duplicati attempt to create a snapshot, and fail silently if that was not allowed or supported. A setting of <code>on</code> will also make Duplicati attempt to create a snapshot, but will produce a warning message in the log if it fails. Setting it to <code>required</code> will make Duplicati abort the backup if the snapshot creation fails. On Windows this uses the Volume Shadow Copy Services (VSS) and requires administrative privileges. On Linux this uses Logical Volume Management (LVM) and requires root privileges.</p>
+<h3 id="store-metadata">store-metadata<a class="headerlink" href="#store-metadata" title="Permanent link">&para;</a></h3>
+<p><code>--store-metadata = true</code><br />
+Stores metadata, such as file timestamps and attributes. This increases the required storage space as well as the processing time.</p>
+<h3 id="symlink-policy">symlink-policy<a class="headerlink" href="#symlink-policy" title="Permanent link">&para;</a></h3>
+<p><code>--symlink-policy = Store</code><br />
+Use this option to handle symlinks differently. The <code>store</code> option will simply record a symlink with its name and destination, and a restore will recreate the symlink as a link. Use the option <code>ignore</code> to ignore all symlinks and not store any information about them. Previous versions of Duplicati used the setting <code>follow</code>, which will cause symlinked files to be included and restore as normal files.</p>
+<h3 id="synchronous-upload">synchronous-upload<a class="headerlink" href="#synchronous-upload" title="Permanent link">&para;</a></h3>
+<p><code>--synchronous-upload = false</code><br />
+Duplicati will upload files while scanning the disk and producing volumes, which usually makes the backup faster.<br />
+Use this flag to turn the behavior off, so that Duplicati will wait for each volume to complete.</p>
+<h3 id="tempdir">tempdir<a class="headerlink" href="#tempdir" title="Permanent link">&para;</a></h3>
+<p><code>--tempdir = C:\Users\User\AppData\Local\Temp\</code><br />
+Duplicati will use the system default temporary folder. This option can be used to supply an alternative folder for temporary storage. Note that SQLite will always put temporary files in the system default temporary folder.<br />
+Consider using the <code>TMPDIR</code> environment variable on Linux to set the temporary folder for both Duplicati and SQLite.</p>
+<h3 id="thread-priority">thread-priority<a class="headerlink" href="#thread-priority" title="Permanent link">&para;</a></h3>
+<p><code>--thread-priority = normal</code><br />
+Selects another thread priority for the process. Use this to set Duplicati to be more or less CPU intensive.</p>
+<h3 id="threshold">threshold<a class="headerlink" href="#threshold" title="Permanent link">&para;</a></h3>
+<p><code>--threshold = 25</code><br />
+As files are changed, some data stored at the remote destination may not be required. This option controls how much wasted space the destination can contain before being reclaimed. This value is a percentage used on each volume and the total storage.</p>
+<h3 id="throttle-download">throttle-download<a class="headerlink" href="#throttle-download" title="Permanent link">&para;</a></h3>
+<p><code>--throttle-download = 0kb</code><br />
+By setting this value you can limit how much bandwidth Duplicati consumes for downloads. Setting this limit can make the backups take longer, but will make Duplicati less intrusive.</p>
+<h3 id="throttle-upload">throttle-upload<a class="headerlink" href="#throttle-upload" title="Permanent link">&para;</a></h3>
+<p><code>--throttle-upload = 0kb</code><br />
+By setting this value you can limit how much bandwidth Duplicati consumes for uploads. Setting this limit can make the backups take longer, but will make Duplicati less intrusive.</p>
+<h3 id="time">time<a class="headerlink" href="#time" title="Permanent link">&para;</a></h3>
+<p><code>--time = now</code><br />
+By default, Duplicati will list and restore files from the most recent backup, use this option to select another item. You may use relative times, like "-2M" for a backup from two months ago.</p>
+<h3 id="unittest-mode">unittest-mode<a class="headerlink" href="#unittest-mode" title="Permanent link">&para;</a></h3>
+<p><code>--unittest-mode = false</code><br />
+When running in unittest mode, no automatic fixes are applied, which assumes that the input data is always in perfect shape. This option is not intended for use in daily backups, but required for testing purposes to reveal potential problems.</p>
+<h3 id="upload-unchanged-backups">upload-unchanged-backups<a class="headerlink" href="#upload-unchanged-backups" title="Permanent link">&para;</a></h3>
+<p><code>--upload-unchanged-backups = false</code><br />
+If no files have changed, Duplicati will not upload a backup set. If the backup data is used to verify that a backup was executed, this option will make Duplicati upload a backupset even if it is empty.</p>
+<h3 id="upload-verification-file">upload-verification-file<a class="headerlink" href="#upload-verification-file" title="Permanent link">&para;</a></h3>
+<p><code>--upload-verification-file = false</code><br />
+Use this option to upload a verification file after changing the remote storage. The file is not encrypted and contains the size and SHA256 hashes of all the remote files and can be used to verify the integrity of the files.</p>
+<h3 id="use-background-io-priority">use-background-io-priority<a class="headerlink" href="#use-background-io-priority" title="Permanent link">&para;</a></h3>
+<p><code>--use-background-io-priority = false</code><br />
+This option instructions the operating system to set the current process to use the lowest IO priority level, which can make operations run slower but will interfere less with other operations running at the same time.</p>
+<h3 id="use-block-cache">use-block-cache<a class="headerlink" href="#use-block-cache" title="Permanent link">&para;</a></h3>
+<p><code>--use-block-cache = false</code><br />
+Store an in-memory block cache.</p>
+<h3 id="usn-policy">usn-policy<a class="headerlink" href="#usn-policy" title="Permanent link">&para;</a></h3>
+<p><code>--usn-policy = off</code><br />
+This setting controls the usage of NTFS USN numbers, which allows Duplicati to obtain a list of files and folders much faster. If this is set to <code>off</code>, Duplicati will not attempt to use USN. Setting this to <code>auto</code> makes Duplicati attempt to use USN, and fail silently if that was not allowed or supported. A setting of <code>on</code> will also make Duplicati attempt to use USN, but will produce a warning message in the log if it fails. Setting it to <code>required</code> will make Duplicati abort the backup if the USN usage fails. This feature is only supported on Windows and requires administrative privileges.</p>
+<h3 id="verbose">verbose<a class="headerlink" href="#verbose" title="Permanent link">&para;</a></h3>
+<p><code>--verbose = false</code><br />
+Use this option to increase the amount of output generated when running an option. Generally this option will produce a line for each file processed.</p>
+<h3 id="version">version<a class="headerlink" href="#version" title="Permanent link">&para;</a></h3>
+<p><code>--version</code><br />
+By default, Duplicati will list and restore files from the most recent backup, use this option to select another item. You may enter multiple values separated with comma, and ranges using <code>-</code>, e.g. <code>0,2-4,7</code>.</p>
+<h3 id="vss-exclude-writers">vss-exclude-writers<a class="headerlink" href="#vss-exclude-writers" title="Permanent link">&para;</a></h3>
+<p><code>--vss-exclude-writers</code><br />
+Use this option to exclude faulty writers from a snapshot. This is equivalent to the -wx flag of the vshadow.exe tool, except that it only accepts writer class GUIDs, and not component names or instance GUIDs. Multiple GUIDs must be separated with a semicolon, and most forms of GUIDs are allowed, including with and without curly braces.</p>
+<h3 id="vss-use-mapping">vss-use-mapping<a class="headerlink" href="#vss-use-mapping" title="Permanent link">&para;</a></h3>
+<p><code>--vss-use-mapping = false</code><br />
+Activate this option to map VSS snapshots to a drive (similar to SUBST, using Win32 DefineDosDevice). This will create temporary drives that are then used to access the contents of a snapshot. This workaround can speed up file access on Windows XP.</p>
+<h2 id="http-options">HTTP options<a class="headerlink" href="#http-options" title="Permanent link">&para;</a></h2>
+<p>With these options can be used to change the way http requests are issued. The module that provide these options is loaded automatically, use <code>--disable-module</code> to prevent this.</p>
+<h3 id="disable-expect100-continue">disable-expect100-continue<a class="headerlink" href="#disable-expect100-continue" title="Permanent link">&para;</a></h3>
+<p><code>--disable-expect100-continue (Boolean)</code><br />
+Disable the expect header.<br />
+The default HTTP request has the header "Expect: 100-Continue" attached, which allows some optimizations when authenticating, but also breaks some web servers, causing them to report "417 - Expectation failed".<br />
+Default value: <code>false</code></p>
+<h3 id="disable-nagling">disable-nagling<a class="headerlink" href="#disable-nagling" title="Permanent link">&para;</a></h3>
+<p><code>--disable-nagling (Boolean)</code><br />
+Disable nagling.<br />
+By default the http requests use the RFC 896 nagling algorithm to support transfer of small packages more efficiently.<br />
+Default value: <code>false</code></p>
+<h3 id="accept-specified-ssl-hash">accept-specified-ssl-hash<a class="headerlink" href="#accept-specified-ssl-hash" title="Permanent link">&para;</a></h3>
+<p><code>--accept-specified-ssl-hash (String)</code><br />
+Optionally accept a known SSL certificate.<br />
+If your server certificate is reported as invalid (eg. with self-signed certificates), you can supply the certificate hash (SHA256) to approve it anyway. The hash value must be entered in hex format without spaces or colons. You can enter multiple hashes separated by commas.</p>
+<h3 id="accept-any-ssl-certificate">accept-any-ssl-certificate<a class="headerlink" href="#accept-any-ssl-certificate" title="Permanent link">&para;</a></h3>
+<p><code>--accept-any-ssl-certificate (Boolean)</code><br />
+Accept any server certificate.<br />
+Use this option to accept any server certificate, regardless of what errors it may have. Please use <code>--accept-specified-ssl-hash</code> instead, whenever possible.</p>
+<h3 id="oauth-url">oauth-url<a class="headerlink" href="#oauth-url" title="Permanent link">&para;</a></h3>
+<p><code>--oauth-url (String)</code><br />
+Alternate OAuth URL.<br />
+Duplicati uses an external server to support the OAuth authentication flow. If you have set up your own Duplicati OAuth server, you can supply the refresh url.<br />
+Default value: <code>https://duplicati-oauth-handler.appspot.com/refresh</code></p>
+<h3 id="allowed-ssl-versions">allowed-ssl-versions<a class="headerlink" href="#allowed-ssl-versions" title="Permanent link">&para;</a></h3>
+<p><code>--allowed-ssl-versions (Flags)</code><br />
+Sets allowed SSL versions.<br />
+This option changes the default SSL versions allowed. This is an advanced option and should only be used if you want to enhance security or work around an issue with a particular SSL protocol.<br />
+Values: <code>Ssl3</code>, <code>Tls</code>, <code>Tls11</code>, <code>Tls12</code>, <code>SystemDefault</code><br />
+Default value: <code>SystemDefault,Ssl3,Tls</code></p>
+<h3 id="http-operation-timeout">http-operation-timeout<a class="headerlink" href="#http-operation-timeout" title="Permanent link">&para;</a></h3>
+<p><code>--http-operation-timeout (Timespan)</code><br />
+Sets the default operation timeout.<br />
+This option changes the default timeout for any HTTP request, the time covers the entire operation from initial packet to shutdown.</p>
+<h3 id="http-readwrite-timeout">http-readwrite-timeout<a class="headerlink" href="#http-readwrite-timeout" title="Permanent link">&para;</a></h3>
+<p><code>--http-readwrite-timeout (Timespan)</code><br />
+Sets readwrite.<br />
+This option changes the default read-write timeout. Read-write timeouts are used to detect a stalled requests, and this option configures the maximum time between activity on a connection.</p>
+<h3 id="http-enable-buffering">http-enable-buffering<a class="headerlink" href="#http-enable-buffering" title="Permanent link">&para;</a></h3>
+<p><code>--http-enable-buffering (Boolean)</code><br />
+Sets HTTP buffering.<br />
+This option sets the HTTP buffering. Setting this to "true" can cause memory leaks, but can also improve performance in some cases.<br />
+Default value: <code>false</code></p>
+<h2 id="scripting-options">Scripting options<a class="headerlink" href="#scripting-options" title="Permanent link">&para;</a></h2>
+<p>With these options you can executes a script before starting an operation, and again on completion. Module is loaded automatically, use <code>--disable-module</code> to prevent this.</p>
+<h3 id="run-script-before">run-script-before<a class="headerlink" href="#run-script-before" title="Permanent link">&para;</a></h3>
+<p><code>--run-script-before (Path)</code><br />
+Run a script on startup.<br />
+Executes a script before performing an operation. The operation will block until the script has completed or timed out.</p>
+<h3 id="run-script-after">run-script-after<a class="headerlink" href="#run-script-after" title="Permanent link">&para;</a></h3>
+<p><code>--run-script-after (Path)</code><br />
+Run a script on exit.<br />
+Executes a script after performing an operation. The script will receive the operation results written to stdout.</p>
+<h3 id="run-script-before-required">run-script-before-required<a class="headerlink" href="#run-script-before-required" title="Permanent link">&para;</a></h3>
+<p><code>--run-script-before-required (Path)</code><br />
+Run a required script on startup.<br />
+Executes a script before performing an operation. The operation will block until the script has completed or timed out. If the script returns a non-zero error code or times out, the operation will be aborted.</p>
+<h3 id="run-script-timeout">run-script-timeout<a class="headerlink" href="#run-script-timeout" title="Permanent link">&para;</a></h3>
+<p><code>--run-script-timeout (Timespan)</code><br />
+Sets the script timeout.<br />
+Sets the maximum time a script is allowed to execute. If the script has not completed within this time, it will continue to execute but the operation will continue too, and no script output will be processed.<br />
+Default value: <code>60s</code></p>
+<h2 id="reporting-options">Reporting options<a class="headerlink" href="#reporting-options" title="Permanent link">&para;</a></h2>
+<p>These options provide support for sending status reports via HTTP messages. Modules sendhttp, sendmail and sendxxmp are loaded automatically, use <code>--disable-module</code> to prevent this.</p>
+<h3 id="send-http-url">send-http-url<a class="headerlink" href="#send-http-url" title="Permanent link">&para;</a></h3>
+<p><code>--send-http-url (String)</code><br />
+HTTP report url.</p>
+<h3 id="send-http-message">send-http-message<a class="headerlink" href="#send-http-message" title="Permanent link">&para;</a></h3>
+<p><code>--send-http-message (String)</code><br />
+The message template.<br />
+This value can be a filename. If the file exists, the file contents will be used as the message. In the message, certain tokens are replaced:</p>
+<ul>
+<li><code>%OPERATIONNAME%</code><br />
+The name of the operation, normally <code>Backup</code>.</li>
+<li><code>%REMOTEURL%</code><br />
+Remote server url.</li>
+<li><code>%LOCALPATH%</code><br />
+The path to the local files or folders involved in the operation (if any).</li>
+<li><code>%PARSEDRESULT%</code>  </li>
+<li>The parsed result, if the operation is a backup. Possible values are: <code>Error</code>, <code>Warning</code>, <code>Success</code></li>
+</ul>
+<p>All command line options are also reported within <code>%value%</code>, e.g. <code>%volsize%</code>. Any unknown/unset value is removed.<br />
+Default value: <code>Duplicati %OPERATIONNAME% report for %backup-name%</code><br />
+<code>%RESULT%</code></p>
+<h3 id="send-http-message-parameter-name">send-http-message-parameter-name<a class="headerlink" href="#send-http-message-parameter-name" title="Permanent link">&para;</a></h3>
+<p><code>--send-http-message-parameter-name (String)</code><br />
+The name of the parameter to send the message as.<br />
+Default value: <code>message</code></p>
+<h3 id="send-http-extra-parameters">send-http-extra-parameters<a class="headerlink" href="#send-http-extra-parameters" title="Permanent link">&para;</a></h3>
+<p><code>--send-http-extra-parameters (String)</code><br />
+Extra parameters to add to the http message. I.e. <code>parameter1=value1&amp;parameter2=value2</code>.</p>
+<h3 id="send-http-level">send-http-level<a class="headerlink" href="#send-http-level" title="Permanent link">&para;</a></h3>
+<p><code>--send-http-level (Enumeration)</code><br />
+The messages to send.<br />
+You can specify one of <code>Success</code>, <code>Warning</code>, <code>Error</code>, <code>Fatal</code>. You can supply multiple options with a comma separator, e.g. <code>Success,Warning</code>. The special value <code>All is a shorthand for</code>Success,Warning,Error,Fatal<code>and will cause all backup operations to send a message.  
+Values:</code>Unknown<code>,</code>Success<code>,</code>Warning<code>,</code>Error<code>,</code>Fatal<code>,</code>All<code>Default value:</code>all`</p>
+<h3 id="send-http-any-operation">send-http-any-operation<a class="headerlink" href="#send-http-any-operation" title="Permanent link">&para;</a></h3>
+<p><code>--send-http-any-operation (Boolean)</code><br />
+Send messages for all operations.<br />
+By default, messages will only be sent after a Backup operation. Use this option to send messages for all operations.</p>
+<h3 id="send-mail-to">send-mail-to<a class="headerlink" href="#send-mail-to" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-to (String)</code><br />
+Email recipient(s).<br />
+This setting is required if mail should be sent, all other settings have default values. You can supply multiple email addresses separated with commas, and you can use the normal address format as specified by RFC2822 section 3.4.<br />
+Example with 3 recipients: <code>Peter Sample &lt;peter@example.com&gt;, John Sample &lt;john@example.com&gt;, admin@example.com</code></p>
+<h3 id="send-mail-from">send-mail-from<a class="headerlink" href="#send-mail-from" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-from (String)</code><br />
+Email sender.<br />
+Address of the email sender. If no host is supplied, the hostname of the first recipient is used. Examples of allowed formats:</p>
+<ul>
+<li><code>sender</code></li>
+<li><code>sender@example.com</code></li>
+<li><code>Mail Sender &lt;sender&gt;</code></li>
+<li><code>Mail Sender &lt;sender@example.com&gt;</code></li>
+</ul>
+<p>Default value: <code>no-reply</code></p>
+<h3 id="send-mail-subject">send-mail-subject<a class="headerlink" href="#send-mail-subject" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-subject (String)</code><br />
+The email subject.<br />
+This setting supplies the email subject. Values are replaced as described in the description for <code>--send-mail-body</code>.<br />
+Default value: <code>Duplicati %OPERATIONNAME% report for %backup-name%</code></p>
+<h3 id="send-mail-body">send-mail-body<a class="headerlink" href="#send-mail-body" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-body (String)</code><br />
+The message body.<br />
+This value can be a filename. If the file exists, the file contents will be used as the message body.<br />
+In the message body, certain tokens are replaced:</p>
+<ul>
+<li><code>%OPERATIONNAME%</code><br />
+The name of the operation, normally <code>Backup</code>.</li>
+<li><code>%REMOTEURL%</code><br />
+Remote server url.</li>
+<li><code>%LOCALPATH%</code><br />
+The path to the local files or folders involved in the operation (if any).</li>
+<li><code>%PARSEDRESULT%</code><br />
+The parsed result, if the operation is a backup. Possible values are: <code>Error</code>, <code>Warning</code>, <code>Success</code>.</li>
+</ul>
+<p>All command line options are also reported within <code>%value%</code>, e.g.<code>%volsize%</code>. Any unknown/unset value is removed.<br />
+Default value: <code>%RESULT%</code></p>
+<h3 id="send-mail-url">send-mail-url<a class="headerlink" href="#send-mail-url" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-url (String)</code><br />
+SMTP Url.<br />
+A url for the SMTP server, e.g. <code>smtp://example.com:25</code>. Multiple servers can be supplied in a prioritized list, separated with semicolon. If a server fails, the next server in the list is tried, until the message has been sent.<br />
+If no server is supplied, a DNS lookup is performed to find the first recipient's MX record, and all SMTP servers are tried in their priority order until the message is sent.<br />
+To enable SMTP over SSL, use the format <code>smtps://example.com</code>. To enable SMTP STARTTLS, use the format <code>smtp://example.com:25/?starttls=when-available</code> or <code>smtp://example.com:25/?starttls=always</code>. If no port is specified, port 25 is used for non-ssl, and 465 for SSL connections. To force not to use STARTTLS use <code>smtp://example.com:25/?starttls=never</code>.</p>
+<h3 id="send-mail-username">send-mail-username<a class="headerlink" href="#send-mail-username" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-username (String)</code><br />
+SMTP Username.<br />
+The username used to authenticate with the SMTP server if required.</p>
+<h3 id="send-mail-password">send-mail-password<a class="headerlink" href="#send-mail-password" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-password (String)</code> 
+SMTP Password.<br />
+The password used to authenticate with the SMTP server if required.</p>
+<h3 id="send-mail-level">send-mail-level<a class="headerlink" href="#send-mail-level" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-level (String)</code><br />
+The messages to send.<br />
+You can specify one of <code>Success</code>, <code>Warning</code>, <code>Error</code>, <code>Fatal</code>. You can supply multiple options with a comma separator, e.g. <code>Success,Warning</code>. The special value <code>All</code> is a shorthand for <code>Success,Warning,Error,Fatal</code> and will cause all backup operations to send an email.<br />
+Values: <code>Unknown</code>, <code>Success</code>, <code>Warning</code>, <code>Error</code>, <code>Fatal</code>, <code>All</code><br />
+Default value: <code>all</code></p>
+<h3 id="send-mail-any-operation">send-mail-any-operation<a class="headerlink" href="#send-mail-any-operation" title="Permanent link">&para;</a></h3>
+<p><code>--send-mail-any-operation (Boolean)</code><br />
+Send email for all operations.<br />
+By default, mail will only be sent after a Backup operation. Use this option to send mail for all operations.</p>
+<h3 id="send-xmpp-to">send-xmpp-to<a class="headerlink" href="#send-xmpp-to" title="Permanent link">&para;</a></h3>
+<p><code>--send-xmpp-to (String)</code><br />
+XMPP recipient email.<br />
+The users who should have the messages sent, specify multiple users separated with commas.</p>
+<h3 id="send-xmpp-message">send-xmpp-message<a class="headerlink" href="#send-xmpp-message" title="Permanent link">&para;</a></h3>
+<p><code>--send-xmpp-message (String)</code><br />
+The message template.<br />
+This value can be a filename. If the file exists, the file contents will be used as the message.<br />
+In the message, certain tokens are replaced:</p>
+<ul>
+<li><code>%OPERATIONNAME%</code><br />
+The name of the operation, normally <code>Backup</code>.</li>
+<li><code>%REMOTEURL%</code><br />
+Remote server url.</li>
+<li><code>%LOCALPATH%</code><br />
+The path to the local files or folders involved in the operation (if any).</li>
+<li><code>%PARSEDRESULT%</code><br />
+The parsed result, if the operation is a backup. Possible values are: <code>Error</code>, <code>Warning</code>, <code>Success</code>.</li>
+</ul>
+<p>All command line options are also reported within <code>%value%</code>, e.g. <code>%volsize%</code>. Any unknown/unset value is removed.<br />
+Default value: <code>Duplicati %OPERATIONNAME% report for %backup-name%</code><br />
+<code>%RESULT%</code></p>
+<h3 id="send-xmpp-username">send-xmpp-username<a class="headerlink" href="#send-xmpp-username" title="Permanent link">&para;</a></h3>
+<p><code>--send-xmpp-username (String)</code><br />
+The XMPP username.<br />
+The username for the account that will send the message, including the hostname. I.e. <code>account@jabber.org/Home</code>.</p>
+<h3 id="send-xmpp-password">send-xmpp-password<a class="headerlink" href="#send-xmpp-password" title="Permanent link">&para;</a></h3>
+<p><code>--send-xmpp-password (String)</code><br />
+The XMPP password.<br />
+The password for the account that will send the message.</p>
+<h3 id="send-xmpp-level">send-xmpp-level<a class="headerlink" href="#send-xmpp-level" title="Permanent link">&para;</a></h3>
+<p><code>--send-xmpp-level (Enumeration)</code><br />
+The messages to send.<br />
+You can specify one of <code>Success</code>, <code>Warning</code>, <code>Error</code>, <code>Fatal</code>.<br />
+You can supply multiple options with a comma separator, e.g. <code>Success,Warning</code>. The special value <code>All</code> is a shorthand for <code>Success,Warning,Error,Fatal</code> and will cause all backup operations to send a message.<br />
+Values: <code>Unknown</code>, <code>Success</code>, <code>Warning</code>, <code>Error</code>, <code>Fatal</code>, <code>All</code><br />
+Default value: <code>all</code></p>
+<h3 id="send-xmpp-any-operation">send-xmpp-any-operation<a class="headerlink" href="#send-xmpp-any-operation" title="Permanent link">&para;</a></h3>
+<p><code>--send-xmpp-any-operation (Boolean)&lt;</code><br />
+Send messages for all operations.<br />
+By default, messages will only be sent after a Backup operation. Use this option to send messages for all operations.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

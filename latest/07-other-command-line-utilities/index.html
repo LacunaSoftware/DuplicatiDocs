@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://backup.e-notariado.org.br/07-other-command-line-utilities/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Outras utilidades da linha de comando - Manual do Módulo Agente do Backup e-notariado</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-XXXXXXXX-X', 'auto');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">Manual do Módulo Agente do Backup e-notariado</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../01-introduction/">Introdução</a>
+</li>
+                                    
+<li >
+    <a href="../02-installation/">Instalação</a>
+</li>
+                                    
+<li >
+    <a href="../03-using-the-graphical-user-interface/">Usando a Interface Gráfica de Usuário</a>
+</li>
+                                    
+<li >
+    <a href="../04-using-duplicati-from-the-command-line/">Usando o Módulo Agente pela linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../05-storage-providers/">Provedores de Armazenamento</a>
+</li>
+                                    
+<li >
+    <a href="../06-advanced-options/">Opções Avançadas</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Outras utilidades da linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../08-disaster-recovery/">Recuperação após desastres</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Artigos <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../appendix-a-how-the-backup-process-works/">Como o processo de backup funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-b-how-the-restore-process-works/">Como o processo de restauração funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-c-choosing-sizes-in-duplicati/">Escolhendo tamanhos corretos</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-d-filters/">Filtros</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../appendix-f-license-agreement/">Licença</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../06-advanced-options/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../08-disaster-recovery/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#duplicatiguitrayiconexe">Duplicati.GUI.TrayIcon.exe</a></li>
+        <li class="main "><a href="#duplicatiserverexe">Duplicati.Server.exe</a></li>
+        <li class="main "><a href="#duplicatiwindowsserviceexe">Duplicati.WindowsService.exe</a></li>
+        <li class="main "><a href="#duplicaticommandlinebackendtesterexe">Duplicati.CommandLine.BackendTester.exe</a></li>
+        <li class="main "><a href="#duplicaticommandlinebackendtoolexe">Duplicati.CommandLine.BackendTool.exe</a></li>
+        <li class="main "><a href="#duplicatilibrarysnapshotsexe">Duplicati.Library.Snapshots.exe</a></li>
+        <li class="main "><a href="#duplicatilibraryautoupdaterexe">Duplicati.Library.AutoUpdater.exe</a></li>
+        <li class="main "><a href="#duplicaticommandlinerecoverytoolexe">Duplicati.CommandLine.RecoveryTool.exe</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>A number of Command Line Utilities are included in the Duplicati package. Each command Line Utility serves a particular purpose. Using the Command Line Utilities, you can backup and restore files without using the Graphical User Interface (from the command prompt or by using your favorite task scheduler), launch a server instance, register Duplicati as a Windows service and perform disaster recovery tasks.</p>
+<p>All Command Line Utilities can be found in the Duplicati program folder.</p>
+<h2 id="duplicatiguitrayiconexe">Duplicati.GUI.TrayIcon.exe<a class="headerlink" href="#duplicatiguitrayiconexe" title="Permanent link">&para;</a></h2>
+<p>This utility starts the Duplicati tray icon. Without additional parameters specified, the included webserver is activated. The webserver listens on TCP port 8200 by default. If port 8200 is unavailable, port 8300 is tried, increasing until a free port is found. You can disable the internal webserver if you are using a separate instance of the Duplicati Server component.</p>
+<p>These command line options are supported:</p>
+<ul>
+<li><code>--help</code><br />
+Displays the integrated help text.</li>
+<li><code>--toolkit:</code><br />
+Choose the toolkit used to generate the TrayIcon, note that it will fail if the selected toolkit is not supported on this machine.<br />
+Supported toolkits: <code>winforms</code>.</li>
+<li><code>--hosturl</code><br />
+Supply the url that the TrayIcon will connect to and show status for.</li>
+<li><code>--no-hosted-server</code><br />
+Set this option to not spawn a local service, use if the TrayIcon should connect to a running service.</li>
+<li><code>--read-config-from-db</code><br />
+Set this option to read server connection info for running service from its database (only together with no-hosted-server).</li>
+<li><code>--browser-command</code><br />
+Set this option to override the default browser detection.</li>
+<li><code>--detached-process</code><br />
+This option runs the tray-icon in detached mode, meaning that the process will exit immediately and not send output to the console of the caller.</li>
+</ul>
+<p>Additionally, these server options are also supported:</p>
+<ul>
+<li><code>--unencrypted-database</code></li>
+<li><code>--portable-mode</code></li>
+<li><code>--log-file</code></li>
+<li><code>--log-level</code></li>
+<li><code>--webservice-webroot</code></li>
+<li><code>--webservice-port</code></li>
+<li><code>--webservice-sslcertificatefile</code></li>
+<li><code>--webservice-sslcertificatepassword</code></li>
+<li><code>--webservice-interface</code></li>
+<li><code>--ping-pong-keepalive</code></li>
+<li><code>--log-retention</code></li>
+<li><code>--server-datafolder</code></li>
+<li><code>--server-encryption-key</code></li>
+</ul>
+<p>See <a href="07-other-command-line-utilities/#duplicatiserverexe">Duplicati.Server.exe</a> for more information about these command line options.</p>
+<h2 id="duplicatiserverexe">Duplicati.Server.exe<a class="headerlink" href="#duplicatiserverexe" title="Permanent link">&para;</a></h2>
+<p>Once started, The Duplicati Server component can perform a number of tasks in the background. A scheduler keeps track of configured backup jobs and starts them at scheduled points in time. Backup jobs can be configured and monitored using the built-in webserver. If no port is specified, the webserver listens on TCP port 8200. If this port is unavailable, the webserver will try to start listening on port 8300 and so on, until an available port is found.</p>
+<p>The server component is completely included in Duplicati.GUI.TrayIcon.exe, so launching this utility will result in starting the Duplicati Server component also, unless disabled with the <code>--no-hosted-server</code> command line option.</p>
+<p>The following command line options can be specified:</p>
+<ul>
+<li><code>--help</code><br />
+Displays the help text.</li>
+<li><code>--unencrypted-database</code><br />
+Disables database encryption.</li>
+<li><code>--portable-mode</code><br />
+Activates portable mode where the database is placed below the program executable.</li>
+<li><code>--log-file</code><br />
+Outputs log information to the file given.</li>
+<li><code>--log-level</code><br />
+Determines the amount of information written in the log file.</li>
+<li><code>--webservice-webroot</code><br />
+The path to the folder where the static files for the webserver is present. The folder must be located beneath the installation folder.</li>
+<li><code>--webservice-port</code><br />
+The port the webserver listens on. Multiple values may be supplied with a comma in between.</li>
+<li><code>--webservice-sslcertificatefile</code><br />
+The certificate and key file in PKCS #12 format the webserver use for SSL. Only RSA/DSA keys are supported.</li>
+<li><code>--webservice-sslcertificatepassword</code><br />
+The password for decryption of certificate PKCS #12 file.</li>
+<li><code>--webservice-interface</code><br />
+The interface the webserver listens on. The special values <code>*</code> and <code>any</code> means any interface. The special value <code>loopback</code> means the loopback adapter.</li>
+<li><code>--webservice-password</code><br />
+The password required to access the webserver. This option is saved so you do not need to set it on each run. Setting an empty value disables the password.</li>
+<li><code>--ping-pong-keepalive</code><br />
+When running as a server, the service daemon must verify that the process is responding. If this option is enabled, the server reads stdin and writes a reply to each line read.</li>
+<li><code>--log-retention</code><br />
+Set the time after which log data will be purged from the database.</li>
+<li><code>--server-datafolder</code><br />
+Duplicati needs to store a small database with all settings. Use this option to choose where the settings are stored. This option can also be set with the environment variable <code>DUPLICATI_HOME</code>.</li>
+<li><code>--server-encryption-key</code><br />
+This option sets the encryption key used to scramble the local settings database. This option can also be set with the environment variable <code>DUPLICATI_DB_KEY</code>. Use the option <code>--unencrypted-database</code> to disable the database scrambling.</li>
+</ul>
+<h2 id="duplicatiwindowsserviceexe">Duplicati.WindowsService.exe<a class="headerlink" href="#duplicatiwindowsserviceexe" title="Permanent link">&para;</a></h2>
+<p>This command line tool can be used to register Duplicati.Server.exe as a Windows service. Windows services are started in the background at bootup time, regardless if a user is logged on or not.</p>
+<p>The service is started with the SYSTEM account by default. The SYSTEM account has full access to the complete local filesystem. As a result, all files on the local system can be accessed by the Duplicati Web interface. Therefore it is strongly recommended to secure the web interface with a password when using Duplicati as a Windows service.</p>
+<p>To register <code>Duplicati.Server.exe</code> as a Windows service, open an elevated command prompt (Run as Administrator). Go to the Duplicati 2 directory (usually located in <code>c:\Program Files\</code>) and run <code>Duplicati.WindowsService.exe install</code> . Wait message that confirms that <code>Duplicati.Server.exe</code> is set as a Windows service and close command prompt. Restart PC to start the service. </p>
+<p><code>Duplicati.WindowsService.exe</code> accepts the following commands:</p>
+<ul>
+<li><code>install</code><br />
+Installs the service.</li>
+<li><code>uninstall</code><br />
+Uninstalls the service.</li>
+</ul>
+<p>Supported options for the install command:<br />
+* <code>/localuser</code><br />
+Installs the service as a local user.</p>
+<p>It is possible to pass arguments to <code>Duplicati.Server.exe</code>, simply add them to the commandline:<br />
+<code>Duplicati.WindowsService.exe install --webservice-interface=loopback --log-retention=3M</code></p>
+<p>See <a href="07-other-command-line-utilities/#duplicatiserverexe">Duplicati.Server.exe</a> for more information about supported command line options.</p>
+<h2 id="duplicaticommandlinebackendtesterexe">Duplicati.CommandLine.BackendTester.exe<a class="headerlink" href="#duplicaticommandlinebackendtesterexe" title="Permanent link">&para;</a></h2>
+<p>Before you start using a particular backend to use as a backup target, you can use the Backend Tester to get an indication of the integrity of that backend. The Backend Tester will perform the following actions:</p>
+<ul>
+<li>Generate a number of files with a random size and random filenames.</li>
+<li>Upload these files to the backend.</li>
+<li>Download the uploaded files.</li>
+<li>Check the hash of each downloaded file to verify its integrity.</li>
+<li>Repeat this procedure a number of times.</li>
+<li>The results of all individual actions are reported back.</li>
+</ul>
+<p>You can specify how many files will be generated, what size they should have, which characters are allowed for the file names and how many times the test procedure should be repeated.</p>
+<p>Usage:<br />
+<code>&lt;protocol&gt;://&lt;username&gt;:&lt;password&gt;@&lt;path&gt;</code></p>
+<p>Supported protocols are:<br />
+<code>aftp</code>, <code>amzcd</code>, <code>azure</code>, <code>b2</code>, <code>box</code>, <code>cloudfiles</code>, <code>dropbox</code>, <code>file</code>, <code>ftp</code>, <code>googledrive</code>, <code>gcs</code>, <code>hubic</code>, <code>jottacloud</code>, <code>mega</code>, <code>onedrive</code>, <code>openstack</code>, <code>s3</code>, <code>od4b</code>, <code>mssp</code>, <code>ssh</code>, <code>tahoe</code>, <code>webdav</code></p>
+<p>Use one or more of the following command line options:</p>
+<ul>
+<li><code>--reruns</code><br />
+Value: Integer<br />
+The number of test runs to perform.<br />
+A number that describes how many times the test is performed.<br />
+Default value: <code>5</code></li>
+<li><code>--tempdir</code><br />
+Value: Path<br />
+The path used to store temporary files.<br />
+The backend tester will use the system default temp path. You can set this option to choose another path.</li>
+<li><code>--extended-chars</code><br />
+Value: String<br />
+A list of allowed extended filename chars. A list of characters besides <code>{a-z, A-Z, 0-9}</code> to use when generating filenames.<br />
+Default value:<code>-_',=)(&amp;%$#@! +</code></li>
+<li><code>--number-of-files</code><br />
+Value: Integer<br />
+The number of files to test with.<br />
+An integer describing how many files to upload during a test run.<br />
+Default value: <code>10</code></li>
+<li><code>--min-file-size</code><br />
+Value: Size<br />
+The minimum allowed file size.<br />
+File sizes are chosen at random, this value is the lower bound.<br />
+Default value: <code>1kb</code></li>
+<li><code>--max-file-size</code><br />
+Value: Size<br />
+The maximum allowed file size.<br />
+File sizes are chosen at random, this value is the upper bound.<br />
+Default value: <code>50mb</code></li>
+<li><code>--min-filename-length</code><br />
+Value: Integer<br />
+The minimum allowed filename length.<br />
+File name lengths are chosen at random, this value is the lower bound.<br />
+Default value: <code>5</code></li>
+<li><code>--max-filename-length</code><br />
+Value: Integer<br />
+The minimum allowed filename length.<br />
+File name lengths are chosen at random, this value is the upper bound<br />
+Default value: <code>80</code></li>
+<li><code>--auto-create-folder</code><br />
+Value: Boolean<br />
+Allows automatic folder creation.<br />
+A value that indicates if missing folders are created automatically.<br />
+Default value: <code>false</code></li>
+<li><code>--skip-overwrite-test</code><br />
+Value: Boolean<br />
+Bypasses the overwrite test.<br />
+A value that indicates if dummy files should be uploaded prior to uploading the real files.<br />
+Default value: <code>false</code></li>
+<li><code>--auto-clean</code><br />
+Value: Boolean<br />
+Removes any files found in target folder.<br />
+A value that indicates if all files in the target folder should be deleted before starting the first test.<br />
+Default value: <code>false</code></li>
+<li><code>--force</code><br />
+Value: Boolean<br />
+Activates file deletion.<br />
+A value that indicates if existing files should really be deleted when using auto-clean.<br />
+Default value: <code>false</code></li>
+</ul>
+<p>Example:<br />
+<code>Duplicati.CommandLineBackendTester.exe ftp://user:pass@server/folder</code></p>
+<h2 id="duplicaticommandlinebackendtoolexe">Duplicati.CommandLine.BackendTool.exe<a class="headerlink" href="#duplicaticommandlinebackendtoolexe" title="Permanent link">&para;</a></h2>
+<p>A wide range of backends can be used by Duplicati, both using standard protocols like FTP or WebDAV and proprietary cloud storage services like Google Drive, Microsoft OneDrive or Dropbox. The requirements for these backends are very low. Basically, the only requirements are that Duplicati can perform the following operations to the backend:</p>
+<ul>
+<li><strong>PUT</strong><br />
+Of course Duplicati should be able to write files to the backend in order to store the data to be backed up.</li>
+<li><strong>GET</strong><br />
+For restore operations and verification of backups, Duplicati needs to be able to read (download) files from the backend.</li>
+<li><strong>LIST</strong><br />
+Duplicati needs to retrieve the contents of the backend by requesting a list of files.</li>
+<li><strong>DELETE</strong><br />
+To remove old or unneeded files and for reorganizing backend files, Duplicati should be able to delete files from the backend.</li>
+<li><strong>CREATEFOLDER</strong><br />
+When adding a new backup job, Duplicati can automatically create a new folder at the backend to store the backup files. Once configured, the Create Folder is no longer needed.</li>
+</ul>
+<p>There are no more requirements. Duplicati doesn't need to rename files or add data to existing files.</p>
+<p>With the Backend tool you can perform the 5 operations to the backend from the command line. This could be useful for testing purposes or disaster recovery (if one or more backup files are missing or corrupt).</p>
+<p>Use this tool very carefully! Usually Duplicati will take care of checking, repairing and recovering from inconsistencies at the backend. Incorrect use of this tool may cause unrecoverable data loss. Only advanced users should use it.</p>
+<p>Usage:<br />
+<code>Duplicati.CommandLine.BackendTool.exe &lt;command&gt; &lt;protocol&gt;://&lt;username&gt;:&lt;password&gt;@&lt;path&gt; [filename]</code></p>
+<p>The following commands are supported:<br />
+<code>GET</code>, <code>PUT</code>, <code>LIST</code>, <code>DELETE</code>, <code>CREATEFOLDER</code></p>
+<p>he supported protocols are:<br />
+<code>aftp</code>, <code>amzcd</code>, <code>azure</code>, <code>b2</code>, <code>box</code>, <code>cloudfiles</code>, <code>dropbox</code>, <code>file</code>, <code>ftp</code>, <code>googledrive</code>, <code>gcs</code>, <code>hubic</code>, <code>jottacloud</code>, <code>mega</code>, <code>onedrive</code>, <code>openstack</code>, <code>s3</code>, <code>od4b</code>, <code>mssp</code>, <code>ssh</code>, <code>tahoe</code>, <code>webdav</code></p>
+<p>Example:<br />
+<code>LIST ftp://user:pass@server/folder</code></p>
+<h2 id="duplicatilibrarysnapshotsexe">Duplicati.Library.Snapshots.exe<a class="headerlink" href="#duplicatilibrarysnapshotsexe" title="Permanent link">&para;</a></h2>
+<p>Duplicati can create snapshots, enabling making backups of files that are in use. Windows provides Volume Shadowcopy Services (VSS) to backup open files, Linux and OS X provide LVM for the same purpose. You can use Duplicati.Library.Snapshots.exe to test if snapshots can be created successfully and if they can be used to access open files.</p>
+<p>To test this, this utility creates a small file and locks it. Then a snapshot is created, which is tried to be read. If the open file can be read, open files can be backed up. The Duplicati.Library.Snapshot utility reports these steps back, which may help troubleshooting failing backups of open files.</p>
+<p>The tool doesn't need any command line arguments, it just needs to be executed from a command line interface with administrative privileges.</p>
+<h2 id="duplicatilibraryautoupdaterexe">Duplicati.Library.AutoUpdater.exe<a class="headerlink" href="#duplicatilibraryautoupdaterexe" title="Permanent link">&para;</a></h2>
+<p>With this tool you can check if a new Duplicati version is available and install updates unattended. You can subscribe to one of the following update channels: Stable, Beta, Experimental, Canary, Nightly, Debug. The Stable Update channel guarantees that you only will receive versions that were thoroughly tested, the Debug channel is for developers only.</p>
+<p>How the Updater tool works, can be customized by some environment variables:</p>
+<ul>
+<li><code>AUTOUPDATER_Duplicati_SKIP_UPDATE</code><br />
+Disables updates completely.</li>
+<li><code>AUTOUPDATER_Duplicati_POLICY</code><br />
+Choose how to handle updates, valid settings: <code>CheckBefore</code>, <code>CheckDuring</code>, <code>CheckAfter</code>, <code>InstallBefore</code>, <code>InstallDuring</code>, <code>InstallAfter</code>, <code>Never</code></li>
+<li><code>AUTOUPDATER_Duplicati_URLS</code><br />
+Use alternate updates urls.</li>
+<li><code>AUTOUPDATER_Duplicati_CHANNEL</code><br />
+Choose different channel than the default Experimental, valid settings: <code>Stable</code>, <code>Beta</code>, <code>Experimental</code>, <code>Canary</code>, <code>Nightly</code>, <code>Debug</code></li>
+</ul>
+<p>Updates are downloaded from: https://updates.duplicati.com/experimental/latest.manifest and 
+https://alt.updates.duplicati.com/experimental/latest.manifest</p>
+<p>Updates are installed in <code>C:\ProgramData\Duplicati\updates</code>.</p>
+<p>Usage:<br />
+<code>Duplicati.Library.AutoUpdater.exe [LIST|CHECK|INSTALL|HELP]</code></p>
+<p>The following commands are supported:</p>
+<ul>
+<li><code>help</code><br />
+Displays the help text.</li>
+<li><code>list</code><br />
+Show which updates are downloaded and available at your local system.</li>
+<li><code>check</code><br />
+Check online if new updates are available in the currently used update channel.</li>
+<li><code>install</code><br />
+Install the latest update from the currently selected update channel.</li>
+</ul>
+<h2 id="duplicaticommandlinerecoverytoolexe">Duplicati.CommandLine.RecoveryTool.exe<a class="headerlink" href="#duplicaticommandlinerecoverytoolexe" title="Permanent link">&para;</a></h2>
+<p>This tool can be used in very specific situations, where you have to restore data from a corrupted backup. The procedure for recovering from this scenario is covered in <a href="08-disaster-recovery">Disaster Recovery</a>.</p>
+<p>Additionally, you can use the Recovery Tool to convert your backup files to another compression type. When creating a new backup job, you have to choose a compression type (default is Zip). After the first backup is made, the compression type cannot be changed. With the Duplicati Recovery Tool, you can download all files from the backend to your local filesystem, encrypt and uncompress them.</p>
+<p>Then you can recompress these files using a different compression type, re-encrypt the files and upload them back to the backend. Change the backup configuration to use the new compression type for future backup operations to complete the procedure.</p>
+<p>Use the Duplicati Recoverytool with the <code>recompress</code> command for this task:
+<code>Duplicati.RecoveryTool.exe recompress &lt;targetcompression&gt; &lt;remoteurl&gt; &lt;localfolder&gt; --reupload --reencrypt [options]</code></p>
+<p>This command downloads all files to the local folder specified by <code>&lt;localfolder&gt;</code>. Then files are uncompressed and recompressed using the compression type specified with <code>&lt;targetcompression&gt;</code>. If <code>--reencrypt</code> is supplied, all files are re-encrypted using the same passphrase. If <code>--reupload</code> is supplied, files with the old compression type are deleted and recompressed files are uploaded back to remote storage.</p>
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_info.png" /> This is a radical operation to your backup files. Therefore, it is recommended to keep a copy of your remote files before this operation is performed. Using the Duplicati Recovery Tool incorrectly may result in unusable backup files.</p>
+</blockquote>
+<hr />
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_important.png" /> Warning: Before recompress delete local database and after recompress recreate local database before executing any operation on backup. This allows Duplicati to read new file names from remote storage.</p>
+</blockquote>
+<hr /></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

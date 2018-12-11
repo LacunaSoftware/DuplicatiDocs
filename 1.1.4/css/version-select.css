@@ -1,0 +1,28 @@
+#version-selector {
+  float: left;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+#version-selector > select {
+  width: auto;
+  height: auto;
+  padding: 1px;
+}
+
+.navbar {
+  background-image: linear-gradient(#009bb3,#009bb3 60%,#009bb3);
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+  background-color: #006f80;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+  background-color: #006f80;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  background-color: #006f80;
+}

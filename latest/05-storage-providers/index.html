@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://backup.e-notariado.org.br/05-storage-providers/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Provedores de Armazenamento - Manual do Módulo Agente do Backup e-notariado</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-XXXXXXXX-X', 'auto');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">Manual do Módulo Agente do Backup e-notariado</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../01-introduction/">Introdução</a>
+</li>
+                                    
+<li >
+    <a href="../02-installation/">Instalação</a>
+</li>
+                                    
+<li >
+    <a href="../03-using-the-graphical-user-interface/">Usando a Interface Gráfica de Usuário</a>
+</li>
+                                    
+<li >
+    <a href="../04-using-duplicati-from-the-command-line/">Usando o Módulo Agente pela linha de comando</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Provedores de Armazenamento</a>
+</li>
+                                    
+<li >
+    <a href="../06-advanced-options/">Opções Avançadas</a>
+</li>
+                                    
+<li >
+    <a href="../07-other-command-line-utilities/">Outras utilidades da linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../08-disaster-recovery/">Recuperação após desastres</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Artigos <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../appendix-a-how-the-backup-process-works/">Como o processo de backup funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-b-how-the-restore-process-works/">Como o processo de restauração funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-c-choosing-sizes-in-duplicati/">Escolhendo tamanhos corretos</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-d-filters/">Filtros</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../appendix-f-license-agreement/">Licença</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../04-using-duplicati-from-the-command-line/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../06-advanced-options/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#local-folder-or-drive">Local folder or drive</a></li>
+        <li class="main "><a href="#ftp">FTP</a></li>
+        <li class="main "><a href="#ftp-alternative">FTP (Alternative)</a></li>
+        <li class="main "><a href="#openstack-object-storage-swift">OpenStack Object Storage / Swift</a></li>
+        <li class="main "><a href="#s3-compatible">S3 Compatible</a></li>
+        <li class="main "><a href="#sftp-ssh">SFTP (SSH)</a></li>
+        <li class="main "><a href="#amazon-cloud-drive">Amazon Cloud Drive</a></li>
+        <li class="main "><a href="#azure-blob">Azure blob</a></li>
+        <li class="main "><a href="#b2-cloud-storage">B2 Cloud Storage</a></li>
+        <li class="main "><a href="#boxcom">Box.com</a></li>
+        <li class="main "><a href="#dropbox">Dropbox</a></li>
+        <li class="main "><a href="#google-cloud-storage">Google Cloud Storage</a></li>
+        <li class="main "><a href="#google-drive">Google Drive</a></li>
+        <li class="main "><a href="#hubic">HubiC</a></li>
+        <li class="main "><a href="#jottacloud">Jottacloud</a></li>
+        <li class="main "><a href="#meganz">Mega.nz</a></li>
+        <li class="main "><a href="#microsoft-office-365-group-microsoft-graph-api">Microsoft Office 365 Group (Microsoft Graph API)</a></li>
+        <li class="main "><a href="#microsoft-onedrive-v2-microsoft-graph-api">Microsoft OneDrive v2 (Microsoft Graph API)</a></li>
+        <li class="main "><a href="#microsoft-sharepoint-v2-microsoft-graph-api">Microsoft SharePoint v2 (Microsoft Graph API)</a></li>
+        <li class="main "><a href="#microsoft-onedrive-liveconnect-api">Microsoft OneDrive (LiveConnect API)</a></li>
+        <li class="main "><a href="#microsoft-onedrive-for-business-microsoftsharepointclient-api">Microsoft OneDrive for Business (Microsoft.SharePoint.Client API)</a></li>
+        <li class="main "><a href="#microsoft-sharepoint-microsoftsharepointclient-api">Microsoft SharePoint (Microsoft.SharePoint.Client API)</a></li>
+        <li class="main "><a href="#rackspace-cloudfiles">Rackspace Cloudfiles</a></li>
+        <li class="main "><a href="#rclone">Rclone</a></li>
+        <li class="main "><a href="#sia-decentralized-cloud">Sia Decentralized Cloud</a></li>
+        <li class="main "><a href="#tahoe-lafs">Tahoe-LAFS</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>Duplicati supports many storage providers to use as backend for your backups. Both standard protocols and a wide range of proprietary cloud storage solutions are supported. Each storage provider has its own set of options that you can specify. Some options are mandatory, other options are optional. Use this list of providers as a reference to compose a valid command for communication with the storage provider of your choice.</p>
+<h2 id="local-folder-or-drive">Local folder or drive<a class="headerlink" href="#local-folder-or-drive" title="Permanent link">&para;</a></h2>
+<p>Duplicati can use the local file system to store backups. The following target URL formats can be used:</p>
+<p><code>file://hostname/folder%20for%20backup</code><br />
+<code>file://\\server\folder%20for%20backup (UNC path)</code><br />
+<code>"C:\folder for backup"</code><br />
+<code>file://c:\folder%20for%20backup (Windows)</code><br />
+<code>file:///usr/pub/folder%20for%20backup (Linux)</code>  </p>
+<p>Options:</p>
+<ul>
+<li><code>--auth-password</code><br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username</code><br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--alternate-destination-marker</code><br />
+This option only works when the <code>--alternate-target-paths</code> option is also specified. If there are alternate paths specified, this option indicates the name of a marker file that must be present in the folder. This can be used to handle situations where an external drive changes drive letter or mount point. By ensuring that a certain file exists, it is possible to prevent writing data to an unwanted external drive. The contents of the file are never examined, only file existence.</li>
+<li><code>--alternate-target-paths</code><br />
+This option allows multiple targets to be specified. The primary target path is placed before the list of paths supplied with this option. Before starting the backup, each folder in the list is checked for existence and optionally the presence of the marker file supplied by <code>--alternate-destination-marker</code>. The first existing path that optionally contains the marker file is then used as the destination. Multiple destinations are separated with a "<code>;</code>". On Windows, the path may be a UNC path, and the drive letter may be substituted with an asterisk (<code>*</code>), eg.: " *:\backup ", which will examine all drive letters. If a username and password is supplied, the same credentials are used for all destinations.</li>
+<li><code>--use-move-for-put</code><br />
+When storing the file, the standard operation is to copy the file and delete the original. This sequence ensures that the operation can be retried if something goes wrong. Activating this option may cause the retry operation to fail. This option has no effect unless the <code>--disable-streaming-transfers</code> options is activated.</li>
+<li><code>--force-smb-authentication</code><br />
+If this option is set, any existing authentication against the remote share is dropped before attempting to authenticate.</li>
+</ul>
+<h2 id="ftp">FTP<a class="headerlink" href="#ftp" title="Permanent link">&para;</a></h2>
+<p>Duplicati can use FTP servers to store backups. The following target URL formats can be used:</p>
+<p><code>ftp://hostname/folder</code></p>
+<p>Options:</p>
+<ul>
+<li><code>--ftp-passive = false</code><br />
+If this flag is set, the FTP connection is made in passive mode, which works better with some firewalls. If the <code>ftp-regular</code> flag is also set, this flag is ignored.</li>
+<li><code>--ftp-regular = true</code><br />
+If this flag is set, the FTP connection is made in active mode. Even if the <code>ftp-passive</code> flag is also set, the connection will be made in active mode.</li>
+<li><code>--auth-password</code><br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username</code><br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--use-ssl</code><br />
+Use this flag to communicate using Secure Socket Layer (SSL) over ftp (ftps).</li>
+<li><code>--disable-upload-verify</code><br />
+To protect against network failures, every upload will be attempted verified. Use this option to disable this verification to make the upload faster but less reliable.</li>
+</ul>
+<h2 id="ftp-alternative">FTP (Alternative)<a class="headerlink" href="#ftp-alternative" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to an FTP based backend using an alternative FTP client. Allowed formats are</p>
+<p><code>aftp://hostname/folder</code></p>
+<p>or</p>
+<p><code>aftp://username:password@hostname/folder</code></p>
+<p>upported options:</p>
+<ul>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--disable-upload-verify (Boolean)</code><br />
+Disable upload verification.<br />
+To protect against network or server failures, every upload will be attempted to be verified. Use this option to disable this verification to make the upload faster but less reliable.</li>
+<li><code>--aftp-data-connection-type (Enumeration)</code><br />
+Configure the FTP data connection type.<br />
+If this flag is set, the FTP data connection type will be changed to the selected option.<br />
+Values: <code>AutoPassive</code>, <code>PASV</code>, <code>PASVEX</code>,<code>EPSV</code>, <code>AutoActive</code>, <code>PORT</code>,<code>EPRT</code><br />
+Default value: <code>AutoPassive</code></li>
+<li><code>--aftp-encryption-mode (Enumeration)</code><br />
+Configure the FTP encryption mode.<br />
+If this flag is set, the FTP encryption mode will be changed to the selected option.<br />
+Values: <code>None</code>, <code>Implicit</code>, <code>Explicit</code><br />
+Default value: <code>None</code></li>
+<li><code>--aftp-ssl-protocols (Flags)</code><br />
+Configure the SSL policy to use when encryption is enabled.<br />
+This flag controls the SSL policy to use when encryption is enabled.<br />
+Values: <code>None</code>, <code>Ssl2</code>, <code>Ssl3</code>, <code>Tls</code>, <code>Default</code>, <code>Tls11</code>, <code>Tls12</code><br />
+Default value: <code>Default</code></li>
+</ul>
+<h2 id="openstack-object-storage-swift">OpenStack Object Storage / Swift<a class="headerlink" href="#openstack-object-storage-swift" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Swift (OpenStack Object Storage). Supported format is</p>
+<p><code>openstack://container/folder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server.<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server.<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>. If the password is supplied,<code>--openstack-tenant-name</code> must also be set.</li>
+<li><code>--openstack-tenant-name (String)</code><br />
+Supplies the Tenant Name used to connect to the server.<br />
+The Tenant Name is commonly the paying user account name. This option must be supplied when authenticating with a password, but is not required when using an API key.</li>
+<li><code>--openstack-apikey (Password)</code><br />
+Supplies the API key used to connect to the server.<br />
+The API key can be used to connect without supplying a password and tenant ID with some providers.</li>
+<li><code>--openstack-authuri (String)</code><br />
+Supplies the authentication URL.<br />
+The authentication URL is used to authenticate the user and find the storage service. The URL commonly ends with "/v2.0". Known providers are:  <ul>
+<li>Rackspace US: <a href="https://identity.api.rackspacecloud.com/v2.0">https://identity.api.rackspacecloud.com/v2.0</a></li>
+<li>Rackspace UK: <a href="https://lon.identity.api.rackspacecloud.com/v2.0">https://lon.identity.api.rackspacecloud.com/v2.0</span></span></a></li>
+<li>OVH Cloud Storage: <a href="https://auth.cloud.ovh.net/v2.0">https://auth.cloud.ovh.net/v2.0</a></li>
+<li>Selectel Cloud Storage: <a href="https://auth.selcdn.ru">https://auth.selcdn.ru</span></span></a></li>
+</ul>
+</li>
+<li><code>--openstack-region (String)</code><br />
+Supplies the region used for creating a container.<br />
+This option is only used when creating a container, and is used to indicate where the container should be placed.<br />
+Consult your provider for a list of valid regions, or leave empty for the default region.</li>
+</ul>
+<h2 id="s3-compatible">S3 Compatible<a class="headerlink" href="#s3-compatible" title="Permanent link">&para;</a></h2>
+<p>Duplicati can use S3-compatible servers to store backups. The following target URL format is used:</p>
+<p><code>s3://bucketname/prefix</code></p>
+<p>Options:</p>
+<ul>
+<li><code>--aws_secret_access_key</code><br />
+The AWS "Secret Access Key" can be obtained after logging into your AWS account, this can also be supplied through the <code>auth-password</code> property.</li>
+<li><code>--aws_access_key_id</code><br />
+The AWS "Access Key ID" can be obtained after logging into your AWS account, this can also be supplied through the <code>auth-username</code> property.</li>
+<li><code>--s3-european-buckets = false</code><br />
+This flag is only used when creating new buckets. If the flag is set, the bucket is created on a European server.<br />
+This flag forces the <code>s3-use-new-style</code> flag. Amazon charges slightly more for European buckets.</li>
+<li><code>--s3-use-rrs = false</code><br />
+This flag toggles the use of the special RRS header. Files stored using RRS are more likely to disappear than those stored normally, but also costs less to store. See the full description here:<br />
+<a href="http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/">http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/</a></li>
+<li><code>--s3-storage-class</code><br />
+Use this option to specify a storage class. If this option is not used, the server will choose a default storage class.</li>
+<li><code>--s3-server-name = s3.amazonaws.com</code><br />
+ Companies other than Amazon are now supporting the S3 API, meaning that this backend can read and write data to those providers as well. Use this option to set the hostname. Currently known providers are:<ul>
+<li>Amazon S3: s3.amazonaws.com</li>
+<li>Hosteurope: cs.hosteurope.de</li>
+<li>Dunkel: dcs.dunkel.de</li>
+<li>DreamHost: objects.dreamhost.com</li>
+<li>dinCloud - Chicago: d3-ord.dincloud.com</li>
+<li>dinCloud - Los Angeles: d3-lax.dincloud.com</li>
+<li>IBM COS (S3) Public US: s3-api.us-geo.objectstorage.softlayer.net</li>
+<li>Wasabi Hot Storage: s3.wasabisys.com&lt;</li>
+</ul>
+</li>
+<li><code>--s3-location-constraint</code><br />
+This option is only used when creating new buckets. Use this option to change what region the data is stored in.<br />
+Amazon charges slightly more for non-US buckets. Known bucket locations:<ul>
+<li>(default):</li>
+<li>Europe (EU): EU</li>
+<li>Europe (EU, Frankfurt): eu-central-1</li>
+<li>Europe (EU, Ireland): eu-west-1</li>
+<li>Europe (EU, London): eu-west-2</li>
+<li>US East (Northern Virginia): us-east-1</li>
+<li>US East (Ohio): us-east-2</li>
+<li>US West (Northern California): us-west-1</li>
+<li>US West (Oregon): us-west-2</li>
+<li>Canada (Central): ca-central-1</li>
+<li>Asia Pacific (Mumbai): ap-south-1</li>
+<li>Asia Pacific (Singapore): ap-southeast-1</li>
+<li>Asia Pacific (Sydney): ap-southeast-2</li>
+<li>Asia Pacific (Tokyo): ap-northeast-1</li>
+<li>Asia Pacific (Seoul): ap-northeast-2</li>
+<li>South America (São Paulo): sa-east-1</li>
+</ul>
+</li>
+<li><code>--use-ssl</code><br />
+Use this flag to communicate using Secure Socket Layer (SSL) over http (https). Note that bucket names containing a period has problems with SSL connections.</li>
+<li><code>--auth-password</code><br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username</code><br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--s3-ext-forcepathstyle = False</code><br />
+Extended option ForcePathStyle</li>
+<li><code>--s3-ext-useaccelerateendpoint = False</code><br />
+Extended option UseAccelerateEndpoint</li>
+<li><code>--s3-ext-signaturemethod = HmacSHA256</code><br />
+Extended option SignatureMethod</li>
+<li><code>--s3-ext-signatureversion = 4</code><br />
+Extended option SignatureVersion</li>
+<li><code>--s3-ext-serviceurl</code><br />
+Extended option ServiceURL</li>
+<li><code>--s3-ext-usehttp = False</code><br />
+Extended option UseHttp</li>
+<li><code>--s3-ext-authenticationregion</code><br />
+Extended option AuthenticationRegion</li>
+<li><code>--s3-ext-authenticationservicename = s3</code><br />
+Extended option AuthenticationServiceName</li>
+<li><code>--s3-ext-maxerrorretry = 4</code><br />
+Extended option MaxErrorRetry</li>
+<li><code>--s3-ext-logresponse = False</code><br />
+Extended option LogResponse</li>
+<li><code>--s3-ext-readentireresponse = False</code><br />
+Extended option ReadEntireResponse</li>
+<li><code>--s3-ext-buffersize = 8192</code><br />
+Extended option BufferSize</li>
+<li><code>--s3-ext-progressupdateinterval = 102400</code><br />
+Extended option ProgressUpdateInterval</li>
+<li><code>--s3-ext-resignretries = False</code><br />
+Extended option ResignRetries</li>
+<li><code>--s3-ext-allowautoredirect = False</code><br />
+Extended option AllowAutoRedirect</li>
+<li><code>--s3-ext-logmetrics = False</code><br />
+Extended option LogMetrics</li>
+<li><code>--s3-ext-disablelogging = False</code><br />
+Extended option DisableLogging</li>
+<li><code>--s3-ext-usedualstackendpoint = False</code><br />
+Extended option UseDualstackEndpoint</li>
+<li><code>--s3-ext-throttleretries = True</code><br />
+Extended option ThrottleRetries</li>
+<li><code>--s3-ext-proxyhost</code><br />
+Extended option ProxyHost</li>
+<li><code>--s3-ext-proxyport = 0</code><br />
+Extended option ProxyPort</li>
+<li><code>--s3-ext-proxybypassonlocal = False</code><br />
+Extended option ProxyBypassOnLocal</li>
+<li><code>--s3-ext-maxidletime = 50000</code><br />
+Extended option MaxIdleTime</li>
+<li><code>--s3-ext-connectionlimit = 50</code><br />
+Extended option ConnectionLimit</li>
+<li><code>--s3-ext-usenaglealgorithm = False</code><br />
+Extended option UseNagleAlgorithm</li>
+</ul>
+<h2 id="sftp-ssh">SFTP (SSH)<a class="headerlink" href="#sftp-ssh" title="Permanent link">&para;</a></h2>
+<p>Duplicati can use SSH servers to store backups. The following target URL formats can be used:</p>
+<p><code>ssh://hostname/folder</code></p>
+<p>Options:</p>
+<ul>
+<li><code>--auth-password</code><br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username</code><br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--ssh-fingerprint</code><br />
+The server fingerprint used for validation of server identity. Format is eg. <code>ssh-rsa 4096 11:22:33:44:55:66:77:88:99:00:11:22:33:44:55:66</code>.</li>
+<li><code>--ssh-accept-any-fingerprints</code><br />
+To guard against man-in-the-middle attacks, the server fingerprint is verified on connection. Use this option to disable host-key fingerprint verification. You should only use this option for testing.</li>
+<li><code>--ssh-keyfile</code><br />
+Points to a valid OpenSSH keyfile. If the file is encrypted, the password supplied is used to decrypt the keyfile.<br />
+If this option is supplied, the password is not used to authenticate. This option only works when using the managed SSH client.</li>
+<li><code>--ssh-key</code><br />
+An url-encoded SSH private key. The private key must be prefixed with <code>sshkey://</code>. If the file is encrypted, the password supplied is used to decrypt the keyfile. If this option is supplied, the password is not used to authenticate. This option only works when using the managed SSH client.</li>
+<li><code>--ssh-operation-timeout = 0</code><br />
+Use this option to manage the internal timeout for SSH operations. If this options is set to zero, the operations will not time out</li>
+<li><code>--ssh-keepalive = 0</code><br />
+This option can be used to enable the keep-alive interval for the SSH connection. If the connection is idle, aggressive firewalls might close the connection. Using keep-alive will keep the connection open in this scenario. If this value is set to zero, the keep-alive is disabled.</li>
+</ul>
+<h2 id="amazon-cloud-drive">Amazon Cloud Drive<a class="headerlink" href="#amazon-cloud-drive" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Amazon Cloud Drive. Supported format is</p>
+<p><code>amzcd://folder/subfolder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization code.<br />
+The authorization token retrieved from https://duplicati-oauth-handler.appspot.com?type=amzcd</li>
+<li><code>--amzcd-labels (String)</code><br />
+The labels to set.<br />
+Use this option to set labels on the files and folders created<br />
+Default value: <code>duplicati,backup</code></li>
+<li><code>--amzcd-consistency-delay (Timespan)</code><br />
+The consistency delay.<br />
+Amazon Cloud drive needs a small delay for results to stay consistent.<br />
+Default value: <code>15s</code></li>
+</ul>
+<h2 id="azure-blob">Azure blob<a class="headerlink" href="#azure-blob" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Azure blob storage. Allowed format:</p>
+<p><code>azure://bucketname</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--azure_account_name (String)</code><br />
+The storage account name.<br />
+The Azure storage account name which can be obtained by clicking the "Manage Access Keys" button on the storage account dashboard.</li>
+<li><code>--azure_access_key (Password)</code><br />
+The access key.<br />
+The Azure access key which can be obtained by clicking the "Manage Access Keys" button on the storage account dashboard.</li>
+<li><code>--azure_blob_container_name (String)</code><br />
+The name of the storage container.<br />
+All files will be written to the container specified.</li>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server.<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server.<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+</ul>
+<h2 id="b2-cloud-storage">B2 Cloud Storage<a class="headerlink" href="#b2-cloud-storage" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to the Backblaze B2 Cloud Storage. Allowed format:</p>
+<p><code>b2://bucketname/prefix</code>
+Supported options:</p>
+<ul>
+<li><code>--b2-accountid (String)</code><br />
+The "B2 Cloud Storage Account ID".<br />
+The "B2 Cloud Storage Account ID" can be obtained after logging into your Backblaze account, this can also be supplied through the <code>auth-username</code> property.<br />
+Aliases: <code>--auth-password</code></li>
+<li><code>--b2-applicationkey (Password)</code><br />
+The "B2 Cloud Storage Application Key" can be obtained after logging into your Backblaze account, this can also be supplied through the <code>auth-password</code> property.<br />
+The "B2 Cloud Storage Application Key".<br />
+Aliases: <code>--auth-username</code></li>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server.<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server.<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--b2-create-bucket-type (String)</code><br />
+The bucket type used when creating a bucket.<br />
+By default, a private bucket is created. Use this option to set the bucket type. Refer to the B2 documentation for allowed types.<br />
+Default value: <code>allPrivate</code></li>
+<li><code>--b2-page-size (Integer)</code><br />
+The size of file-listing pages.<br />
+Use this option to set the page size for listing contents of B2 buckets. A lower number means less data, but can increase the number of Class C transaction on B2. Suggested values are between <code>100</code> and <code>1000</code><br />
+Default value: <code>500</code></li>
+</ul>
+<h2 id="boxcom">Box.com<a class="headerlink" href="#boxcom" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Box.com. Supported format is</p>
+<p><code>box://folder/subfolder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization code.<br />
+The authorization token retrieved from https://duplicati-oauth-handler.appspot.com?type=box.com</li>
+<li><code>--box-delete-from-trash (Boolean)</code><br />
+Force delete files.<br />
+After deleting a file, it may end up in the trash folder where it will be deleted after a grace period. Use this command to force immediate removal of delete files.</li>
+</ul>
+<h2 id="dropbox">Dropbox<a class="headerlink" href="#dropbox" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Dropbox. Supported format is</p>
+<p><code>dropbox://folder/subfolder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization code.<br />
+The authorization token retrieved from <a href="https://duplicati-oauth-handler.appspot.com?type=dropbox">https://duplicati-oauth-handler.appspot.com?type=dropbox</a></li>
+</ul>
+<h2 id="google-cloud-storage">Google Cloud Storage<a class="headerlink" href="#google-cloud-storage" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Google Cloud Storage. Supported format is</p>
+<p><code>googlecloudstore://bucket/folder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--gcs-location (String)</code><br />
+Specifies location option for creating a bucket.<br />
+This option is only used when creating new buckets. Use this option to change what region the data is stored in.<br />
+Charges vary with bucket location. Known bucket locations:<ul>
+<li>(default):</li>
+<li>Europe: EU</li>
+<li>United States: US</li>
+<li>Asia: ASIA</li>
+<li>Eastern Asia-Pacific: ASIA-EAST1</li>
+<li>Central United States 1: US-CENTRAL1</li>
+<li>Central United States 2: US-CENTRAL2</li>
+<li>Eastern United States 1: US-EAST1</li>
+<li>Eastern United States 2: US-EAST2</li>
+<li>Eastern United States 3: US-EAST3</li>
+<li>estern United States: US-WEST1</li>
+</ul>
+</li>
+<li><code>--gcs-storage-class (String)</code><br />
+Specifies storage class for creating a bucket.<br />
+This option is only used when creating new buckets. Use this option to change what storage type the bucket has.<br />
+Charges and functionality vary with bucket storage class. Known storage classes:<ul>
+<li>(default):</li>
+<li>Europe: EU</li>
+<li>United States: US</li>
+<li>Asia: ASIA</li>
+<li>Eastern Asia-Pacific: ASIA-EAST1</li>
+<li>Central United States 1: US-CENTRAL1</li>
+<li>Central United States 2: US-CENTRAL2</li>
+<li>Eastern United States 1: US-EAST1</li>
+<li>Eastern United States 2: US-EAST2</li>
+<li>Eastern United States 3: US-EAST3</li>
+<li>Western United States: US-WEST1</li>
+</ul>
+</li>
+<li><code>--authid (Password)</code><br />
+The authorization code.<br />
+The authorization token retrieved from https://duplicati-oauth-handler.appspot.com?type=gcs</li>
+<li><code>--gcs-project (String)</code><br />
+Specifies project for creating a bucket.<br />
+This option is only used when creating new buckets. Use this option to supply the project ID that the bucket is attached to. The project determines where usage charges are applied.</li>
+</ul>
+<h2 id="google-drive">Google Drive<a class="headerlink" href="#google-drive" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Google Drive. Supported format is</p>
+<p><code>googledrive://folder/subfolder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization code.<br />
+The authorization token retrieved from <a href="https://duplicati-oauth-handler.appspot.com?type=googledrive">https://duplicati-oauth-handler.appspot.com?type=googledrive</a></li>
+</ul>
+<h2 id="hubic">HubiC<a class="headerlink" href="#hubic" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to HubiC. Supported format is</p>
+<p><code>hubic://container/folder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization code.<br />
+The authorization token retrieved from <a href="https://duplicati-oauth-handler.appspot.com?type=hubic">https://duplicati-oauth-handler.appspot.com?type=hubic</a></li>
+</ul>
+<h2 id="jottacloud">Jottacloud<a class="headerlink" href="#jottacloud" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Jottacloud using it's REST protocol. Allowed format is</p>
+<p><code>jottacloud://folder/subfolder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server.<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server.<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--jottacloud-device (String)</code><br />
+Supplies the backup device to use.<br />
+The backup device to use. Will be created if not already exists. You can manage your devices from the backup panel in the Jottacloud web interface. When you specify a custom device you should also specify the mount point to use on this device with the <code>jottacloud-mountpoint</code> option.</li>
+<li><code>--jottacloud-mountpoint (String)</code><br />
+Supplies the mount point to use on the server.<br />
+The mount point to use on the server. The default is <code>Archive</code> for using the built-in archive mount point. Set this option to <code>Sync</code> to use the built-in synchronization mount point instead, or if you have specified a custom device with option <code>jottacloud-device</code> you are free to name the mount point as you like.</li>
+</ul>
+<h2 id="meganz">Mega.nz<a class="headerlink" href="#meganz" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Mega.co.nz. Allowed format:</p>
+<p><code>mega://folder/subfolder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server.<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server.<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+</ul>
+<h2 id="microsoft-office-365-group-microsoft-graph-api">Microsoft Office 365 Group (Microsoft Graph API)<a class="headerlink" href="#microsoft-office-365-group-microsoft-graph-api" title="Permanent link">&para;</a></h2>
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_important.png" /> Specifying the group's email address when using this backend requires the <a href="https://developer.microsoft.com/en-us/graph/docs/concepts/permissions_reference#group-permissions"><code>Group.Read.All</code> permission scope</a> in the Microsoft Graph APIs. These permissions require <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-scopes#admin-restricted-scopes">admin consent</a> to enable.<br />
+You can use this backend without this permission by using an AuthID generated for the <code>SharePoint v2</code> backend and passing the <code>--group-id</code> instead of <code>--group-email</code>. You can lookup the group ID by using the <a href="https://developer.microsoft.com/en-us/graph/graph-explorer">Microsoft Graph Explorer</a>.</p>
+</blockquote>
+<hr />
+<p>This backend can store backups in the document library associated with a Microsoft Office 365 Group, using the following URL format:</p>
+<p><code>msgroup://folder/subfolder</code></p>
+<p>Options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization token retrieved from <a href="https://duplicati-oauth-handler.appspot.com?type=msgroup">https://duplicati-oauth-handler.appspot.com?type=msgroup</a></li>
+<li><code>--group-email (String)</code><br />
+Email address of the group to store data in, for example: <code>test@example.com</code>.<br />
+Either this parameter or <code>--group-id</code> is required.<br />
+When this parameter is specified, the group's ID is looked up automatically.</li>
+<li><code>--group-id (String)</code><br />
+ID of the group to store data in.<br />
+Either this parameter or <code>--group-email</code> is required.<br />
+This ID can be looked up by querying in the <a href="https://developer.microsoft.com/en-us/graph/graph-explorer">Microsoft Graph Explorer</a>.</li>
+<li><code>--fragment-size (Integer)</code><br />
+Size of individual fragments which are uploaded separately for large files.<br />
+It is recommended to be between <code>5-10 MiB</code> (though a smaller value may work better on a slower or less reliable connection), and to be a multiple of <code>320 KiB</code>.<br />
+Default value: <code>10 MiB</code></li>
+<li><code>--fragment-retry-count (Integer)</code><br />
+Number of retry attempts made for each fragment before failing the overall file upload.<br />
+Default value: <code>5</code></li>
+<li><code>--fragment-retry-delay (Integer)</code><br />
+Amount of time (in milliseconds) to wait between failures when uploading fragments.<br />
+Default value: <code>1000</code></li>
+</ul>
+<h2 id="microsoft-onedrive-v2-microsoft-graph-api">Microsoft OneDrive v2 (Microsoft Graph API)<a class="headerlink" href="#microsoft-onedrive-v2-microsoft-graph-api" title="Permanent link">&para;</a></h2>
+<p>This backend can store backups in both OneDrive and OneDrive for Business via the Microsoft Graph API, using the following URL format:</p>
+<p><code>onedrivev2://folder/subfolder</code></p>
+<p>Options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization token retrieved from <a href="https://duplicati-oauth-handler.appspot.com?type=onedrivev2">https://duplicati-oauth-handler.appspot.com?type=onedrivev2</a></li>
+<li><code>--fragment-size (Integer)</code><br />
+Size of individual fragments which are uploaded separately for large files.<br />
+It is recommended to be between <code>5-10 MiB</code> (though a smaller value may work better on a slower or less reliable connection), and to be a multiple of <code>320 KiB</code>.<br />
+Default value: <code>10 MiB</code></li>
+<li><code>--fragment-retry-count (Integer)</code><br />
+Number of retry attempts made for each fragment before failing the overall file upload.<br />
+Default value: <code>5</code></li>
+<li><code>--fragment-retry-delay (Integer)</code><br />
+Amount of time (in milliseconds) to wait between failures when uploading fragments.<br />
+Default value: <code>1000</code></li>
+</ul>
+<h2 id="microsoft-sharepoint-v2-microsoft-graph-api">Microsoft SharePoint v2 (Microsoft Graph API)<a class="headerlink" href="#microsoft-sharepoint-v2-microsoft-graph-api" title="Permanent link">&para;</a></h2>
+<p>This backend can store backups in SharePoint sites via the Microsoft Graph API, using the following URL format:</p>
+<p><code>sharepoint://{tenant}.sharepoint.com/{Path/To/Web}//{BaseDocLibrary}/{folder/subfolder}</code></p>
+<p>A double slash, <code>//</code>, can optionally be used in the path to provide a hint to the location of the split between the site's base web address and the document library path.</p>
+<p>Additionally, if the ID of the site is known (e.g., by discovering it in the <a href="https://developer.microsoft.com/en-us/graph/graph-explorer">Microsoft Graph Explorer</a>), it can be explicitly specified via the <code>--site-id</code> parameter, and the URL can be given with just the relative path within the document library:</p>
+<p><code>sharepoint://folder/subfolder</code></p>
+<p>Options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization token retrieved from <a href="https://duplicati-oauth-handler.appspot.com?type=sharepoint">https://duplicati-oauth-handler.appspot.com?type=sharepoint</a></li>
+<li><code>--site-id (String)</code><br />
+ID of the SharePoint site to store data in.<br />
+This parameter is required when using the relative document library path (without specifying the SharePoint site's web address).<br />
+This ID can be looked up by querying in the <a href="https://developer.microsoft.com/en-us/graph/graph-explorer">Microsoft Graph Explorer</a>.<br />
+When the SharePoint site's full web address is provided, it is looked up automatically.</li>
+<li><code>--fragment-size (Integer)</code><br />
+Size of individual fragments which are uploaded separately for large files.<br />
+It is recommended to be between <code>5-10 MiB</code> (though a smaller value may work better on a slower or less reliable connection), and to be a multiple of <code>320 KiB</code>.<br />
+Default value: <code>10 MiB</code></li>
+<li><code>--fragment-retry-count (Integer)</code><br />
+Number of retry attempts made for each fragment before failing the overall file upload.<br />
+Default value: <code>5</code></li>
+<li><code>--fragment-retry-delay (Integer)</code><br />
+Amount of time (in milliseconds) to wait between failures when uploading fragments.<br />
+Default value: <code>1000</code></li>
+</ul>
+<h2 id="microsoft-onedrive-liveconnect-api">Microsoft OneDrive (LiveConnect API)<a class="headerlink" href="#microsoft-onedrive-liveconnect-api" title="Permanent link">&para;</a></h2>
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_important.png" /> The LiveConnect API this backend is based on is deprecated and <a href="https://docs.microsoft.com/en-us/onedrive/developer/rest-api/concepts/migrating-from-live-sdk">will be disabled on November 1st, 2018</a>. New backups to OneDrive should be created using the OneDrive v2 backend based on the Microsoft Graph API, and existing backups should be migrated.</p>
+</blockquote>
+<hr />
+<p>Duplicati can use Microsoft OneDrive to store backups. The following target URL format is used:</p>
+<p><code>onedrive://folder/subfolder</code></p>
+<p>Options:</p>
+<ul>
+<li><code>--authid (Password)</code><br />
+The authorization token retrieved from <a href="https://duplicati-oauth-handler.appspot.com?type=onedrive">https://duplicati-oauth-handler.appspot.com?type=onedrive</a></li>
+</ul>
+<h2 id="microsoft-onedrive-for-business-microsoftsharepointclient-api">Microsoft OneDrive for Business (Microsoft.SharePoint.Client API)<a class="headerlink" href="#microsoft-onedrive-for-business-microsoftsharepointclient-api" title="Permanent link">&para;</a></h2>
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_info.png" /> This backend is based on the Microsoft.SharePoint.Client library, and doesn't support features like OAuth or two-factor authentication (2FA). The Microsoft OneDrive v2 backend supports these features, and is also compatible with OneDrive for Business.</p>
+</blockquote>
+<hr />
+<p>Supports connections to Microsoft OneDrive for Business. Allowed formats are</p>
+<p><code>od4b://tennant.sharepoint.com/personal/username_domain/Documents/subfolder</code></p>
+<p>or</p>
+<p><code>od4b://username:password@tennant.sharepoint.com/personal/username_domain/Documents/folder</code></p>
+<p>You can use a double slash '//' in the path to denote the base path from the documents folder.</p>
+<p>Supported options:</p>
+<ul>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server.<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server.<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--integrated-authentication (Boolean)</code><br />
+Use windows integrated authentication to connect to the server.<br />
+If the server and client both supports integrated authentication, this option enables that authentication method.<br />
+This is likely only available with windows servers and clients.</li>
+<li><code>--delete-to-recycler (Boolean)</code><br />
+Move deleted files to the recycle bin.<br />
+Use this option to have files moved to the recycle bin folder instead of removing them permanently when compacting or deleting backups.</li>
+<li><code>--binary-direct-mode (Boolean)</code><br />
+Upload files using binary direct mode.<br />
+Use this option to upload files to SharePoint as a whole with BinaryDirect mode. This is the most efficient way of uploading, but can cause non-recoverable timeouts under certain conditions. Use this option only with very fast and stable internet connections.<br />
+Default value: <code>false</code></li>
+<li><code>--web-timeout (Timespan)</code><br />
+Set timeout for SharePoint web operations.<br />
+Use this option to specify a custom value for timeouts of web operation when communicating with SharePoint Server.<br />
+Recommended value is <code>180s</code>.</li>
+<li><code>--chunk-size (Size)</code><br />
+Set block size for chunked uploads to SharePoint.<br />
+Use this option to specify the size of each chunk when uploading to SharePoint Server. Recommended value is 4MB.<br />
+Default value: <code>4mb</code></li>
+</ul>
+<h2 id="microsoft-sharepoint-microsoftsharepointclient-api">Microsoft SharePoint (Microsoft.SharePoint.Client API)<a class="headerlink" href="#microsoft-sharepoint-microsoftsharepointclient-api" title="Permanent link">&para;</a></h2>
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_info.png" /> This backend is based on the Microsoft.SharePoint.Client library, and doesn't support features like OAuth or two-factor authentication (2FA). The Microsoft SharePoint v2 backend supports these features.</p>
+</blockquote>
+<hr />
+<p>Supports connections to a SharePoint server (including OneDrive for Business). Allowed formats are</p>
+<p><code>mssp://tennant.sharepoint.com/PathToWeb//BaseDocLibrary/subfolder</code></p>
+<p>or</p>
+<p><code>mssp://username:password@tennant.sharepoint.com/PathToWeb//BaseDocLibrary/subfolder</code></p>
+<p>Use a double slash '//' in the path to denote the web from the documents library.</p>
+<p>Supported options:</p>
+<ul>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server.<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server.<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--integrated-authentication (Boolean)</code><br />
+Use windows integrated authentication to connect to the server.<br />
+If the server and client both supports integrated authentication, this option enables that authentication method.<br />
+This is likely only available with windows servers and clients.</li>
+<li><code>--delete-to-recycler (Boolean)</code><br />
+Move deleted files to the recycle bin.<br />
+Use this option to have files moved to the recycle bin folder instead of removing them permanently when compacting or deleting backups.</li>
+<li><code>--binary-direct-mode (Boolean)</code><br />
+Upload files using binary direct mode.<br />
+Use this option to upload files to SharePoint as a whole with BinaryDirect mode. This is the most efficient way of uploading, but can cause non-recoverable timeouts under certain conditions. Use this option only with very fast and stable internet connections.<br />
+Default value: <code>false</code></li>
+<li><code>--web-timeout (Timespan)</code><br />
+Set timeout for SharePoint web operations.<br />
+Use this option to specify a custom value for timeouts of web operation when communicating with SharePoint Server.<br />
+Recommended value is <code>180s</code>.</li>
+<li><code>--chunk-size (Size)</code><br />
+Set block size for chunked uploads to SharePoint.<br />
+Use this option to specify the size of each chunk when uploading to SharePoint Server. Recommended value is <code>4MB</code>.<br />
+Default value: <code>4mb</code></li>
+</ul>
+<h2 id="rackspace-cloudfiles">Rackspace Cloudfiles<a class="headerlink" href="#rackspace-cloudfiles" title="Permanent link">&para;</a></h2>
+<p>Supports connections to the CloudFiles backend. Allowed formats is</p>
+<p><code>cloudfiles://container/folder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--auth-password (Password)</code><br />
+Supplies the password used to connect to the server.<br />
+The password used to connect to the server. This may also be supplied as the environment variable <code>AUTH_PASSWORD</code>.</li>
+<li><code>--auth-username (String)</code><br />
+Supplies the username used to connect to the server.<br />
+The username used to connect to the server. This may also be supplied as the environment variable <code>AUTH_USERNAME</code>.</li>
+<li><code>--cloudfiles-username (String)</code><br />
+Supplies the username used to authenticate with CloudFiles.<br />
+Aliases: `--auth-username</li>
+<li><code>--cloudfiles-accesskey (Password)</code><br />
+Supplies the access key used to connect to the server.<br />
+Supplies the API Access Key used to authenticate with CloudFiles.<br />
+Aliases: <code>--auth-password</code></li>
+<li><code>--cloudfiles-uk-account (Boolean)</code><br />
+Use a UK account.<br />
+Duplicati will assume that the credentials given are for a US account, use this option if the account is a UK based account. Note that this is equivalent to setting <code>--cloudfiles-authentication-url=https://lon.auth.api.rackspacecloud.com/v1.0</code>.</li>
+<li><code>--cloudfiles-authentication-url (String)</code><br />
+Provide another authentication URL.<br />
+CloudFiles use different servers for authentication based on where the account resides, use this option to set an alternate authentication URL. This option overrides <code>--cloudfiles-uk-account</code>.<br />
+Default value: <code>https://identity.api.rackspacecloud.com/auth</code></li>
+</ul>
+<h2 id="rclone">Rclone<a class="headerlink" href="#rclone" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Rclone. Allowed format:</p>
+<p><code>rclone://server/folder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--rclone-local-repository (String)</code><br />
+Local repository for Rclone. Make sure it is configured as a local drive, as it needs access to the files generated by Duplicati.<br />
+Default value: <code>local</code>  </li>
+<li><code>--rclone-remote-repository (String)</code><br />
+Remote repository for Rclone. This can be any of the backends provided by Rclone. More info available on https://rclone.org/.<br />
+Default value: <code>remote</code>  </li>
+<li><code>--rclone-remote-path (String)</code><br />
+Path on the Remote repository.<br />
+Default value: <code>backup</code>  </li>
+<li><code>--rclone-option (String)</code><br />
+Options will be transferred to rclone.  </li>
+<li><code>--rclone-executable (String)</code><br />
+Full path to the rclone executable. Only needed if it's not in your path.<br />
+Default value: <code>rclone</code>  </li>
+</ul>
+<h2 id="sia-decentralized-cloud">Sia Decentralized Cloud<a class="headerlink" href="#sia-decentralized-cloud" title="Permanent link">&para;</a></h2>
+<p>This backend can read and write data to Sia. Allowed format:</p>
+<p><code>sia://server/folder/BaseDocLibrary/subfolder</code></p>
+<p>Supported options:</p>
+<ul>
+<li><code>--sia-targetpath (String)</code><br />
+Backup path.<br />
+Target path, ie <code>/backup</code><br />
+Default value: <code>/backup</code></li>
+<li><code>--sia-password (Password)</code><br />
+Sia password</li>
+<li><code>--sia-redundancy (String)</code><br />
+Minimum value is <code>3</code>.<br />
+Default value: <code>1.5</code></li>
+</ul>
+<h2 id="tahoe-lafs">Tahoe-LAFS<a class="headerlink" href="#tahoe-lafs" title="Permanent link">&para;</a></h2>
+<p>Duplicati can use the TahoeLAFS to store backups. The following target URL format is used:</p>
+<p><code>tahoe://hostname:port/uri/$DIRCAP</code></p>
+<p>Options:</p>
+<ul>
+<li><code>--use-ssl</code> 
+Use this flag to communicate using Secure Socket Layer (SSL) over http (https).</li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

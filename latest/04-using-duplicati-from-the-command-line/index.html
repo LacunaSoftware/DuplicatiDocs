@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://backup.e-notariado.org.br/04-using-duplicati-from-the-command-line/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Usando o Módulo Agente pela linha de comando - Manual do Módulo Agente do Backup e-notariado</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-XXXXXXXX-X', 'auto');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">Manual do Módulo Agente do Backup e-notariado</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../01-introduction/">Introdução</a>
+</li>
+                                    
+<li >
+    <a href="../02-installation/">Instalação</a>
+</li>
+                                    
+<li >
+    <a href="../03-using-the-graphical-user-interface/">Usando a Interface Gráfica de Usuário</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Usando o Módulo Agente pela linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../05-storage-providers/">Provedores de Armazenamento</a>
+</li>
+                                    
+<li >
+    <a href="../06-advanced-options/">Opções Avançadas</a>
+</li>
+                                    
+<li >
+    <a href="../07-other-command-line-utilities/">Outras utilidades da linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../08-disaster-recovery/">Recuperação após desastres</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Artigos <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../appendix-a-how-the-backup-process-works/">Como o processo de backup funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-b-how-the-restore-process-works/">Como o processo de restauração funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-c-choosing-sizes-in-duplicati/">Escolhendo tamanhos corretos</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-d-filters/">Filtros</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../appendix-f-license-agreement/">Licença</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../03-using-the-graphical-user-interface/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../05-storage-providers/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#introduction-to-the-duplicati-command-line-tool">Introduction to the Duplicati Command Line tool</a></li>
+        <li class="main "><a href="#how-to-use-the-duplicati-command-line-tool">How to use the Duplicati Command Line tool</a></li>
+        <li class="main "><a href="#getting-help-from-the-command-line-tools">Getting help from the Command Line Tools</a></li>
+        <li class="main "><a href="#the-backup-command">The BACKUP command</a></li>
+        <li class="main "><a href="#the-restore-command">The RESTORE command</a></li>
+        <li class="main "><a href="#the-find-command">The FIND command</a></li>
+        <li class="main "><a href="#the-compare-command">The COMPARE command</a></li>
+        <li class="main "><a href="#the-test-command">The TEST command</a></li>
+        <li class="main "><a href="#the-compact-command">The COMPACT command</a></li>
+        <li class="main "><a href="#the-delete-command">The DELETE command</a></li>
+        <li class="main "><a href="#the-purge-command">The PURGE command</a></li>
+        <li class="main "><a href="#the-repair-command">The REPAIR command</a></li>
+        <li class="main "><a href="#the-affected-command">The AFFECTED command</a></li>
+        <li class="main "><a href="#the-list-broken-files-command">The LIST-BROKEN-FILES command</a></li>
+        <li class="main "><a href="#the-purge-broken-files-command">The PURGE-BROKEN-FILES command</a></li>
+        <li class="main "><a href="#the-create-report-command">The CREATE-REPORT command</a></li>
+        <li class="main "><a href="#the-test-filters-command">The TEST-FILTERS command</a></li>
+        <li class="main "><a href="#the-system-info-command">The SYSTEM-INFO command</a></li>
+        <li class="main "><a href="#the-send-mail-command">The SEND-MAIL command</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="introduction-to-the-duplicati-command-line-tool">Introduction to the Duplicati Command Line tool<a class="headerlink" href="#introduction-to-the-duplicati-command-line-tool" title="Permanent link">&para;</a></h2>
+<p>The integrated webserver in Duplicati offers a convenient way to schedule and run backup jobs. However, if you can't or don't want to use the graphical user interface and/or the built-in scheduler, you can use the Duplicati Commandline tool. The filename is <code>Duplicati.CommandLine.exe</code>, the tool can be found in the Duplicati program folder.</p>
+<p>With the Commandline tool you can perform all operations that are available in the Graphical User Interface. You can even do more with the Commandline tool. If you want to perform specific operations, like deleting a particular backup or comparing 2 backups, you will not be able to do this in the Graphical User Interface, but the Commandline tool supports these operations.</p>
+<h2 id="how-to-use-the-duplicati-command-line-tool">How to use the Duplicati Command Line tool<a class="headerlink" href="#how-to-use-the-duplicati-command-line-tool" title="Permanent link">&para;</a></h2>
+<p>The Commandline tool can be used by typing <code>Duplicati.CommandLine.exe</code> followed by a number of arguments in a command prompt window. Linux and Mac OS X users should type <code>mono Duplicati.CommandLine.exe</code> or <code>duplicati-cli</code>, which is a wrapper for running <code>mono Duplicati.CommandLine.exe</code>.</p>
+<p>Which arguments you need to specify depend on the command you run with the Commandline tool. Generally, these arguments need to be supplied:</p>
+<ul>
+<li><strong>The command to execute</strong><br />
+This tells the Commandline tool what to do. Supported commands will be described one by one. The Commandline tool supports these commands:<br />
+<code>backup</code>, <code>find</code>, <code>restore</code>, <code>delete</code>, <code>compact</code>, <code>test</code>, <code>compare</code>, <code>purge</code>, <code>vacuum</code>, <code>repair</code>, <code>affected</code>, <code>list-broken-files</code>, <code>purge-broken-files</code></li>
+<li><strong>Target URL</strong><br />
+If the command needs access to the files at the backend, you need to specify the protocol, URL and credentials as the first argument.<br />
+Example: to access host.myftpserver.com/backup with username User and password Pass, using the FTP protocol, the target URL will be:<br />
+<code>ftp://User:Pass@host.myftpserver.com</code><br />
+Each storage provider has its own set of required and optional parameters. See <a href="05-storage-providers">Storage Providers</a> for more info about specific backends.</li>
+<li><strong>Command arguments</strong><br />
+Some commands need additional information. For example, if you want to compare 2 backups, you have to specify which 2 backups from the available list Duplicati should compare.</li>
+<li><strong>Advanced options</strong><br />
+Duplicati offers a wide range of advanced options. With advanced options you give Duplicati additional information, like the location of the local database, where to store temporary files or information to fine-tune the command you want to execute. There are general advanced options and advanced options for specific storage providers. See&lt; <a href="05-storage-providers">Storage Providers</a> and <a href="06-advanced-options">Advanced options</a> for more information.</li>
+</ul>
+<p>Generally, each operation from the command line has the following format:</p>
+<p><strong>For Windows:</strong><br />
+<code>Duplicati.CommandLine.exe &lt;command&gt; [storage-URL] [arguments] [advanced-options]</code></p>
+<p><strong>For Linux and Mac OS X:</strong><br />
+<code>duplicate-cli &lt;command&gt; [storage-URL] [arguments] [advanced-options]</code></p>
+<p>Storage-URL, arguments and advanced-options may or may not be mandatory, depending on the command you execute.</p>
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_info.png" /> From this point, only Duplicati.CommandLine.exe will be used as reference to the Commandline tool. Linux and Mac OS X users should replace this with duplicati-cli or mono Duplicati.CommandLine.exe.</p>
+</blockquote>
+<hr />
+<h2 id="getting-help-from-the-command-line-tools">Getting help from the Command Line Tools<a class="headerlink" href="#getting-help-from-the-command-line-tools" title="Permanent link">&para;</a></h2>
+<p>The Commandline tool provides online help with the special <code>help</code> command. To get started, type <code>Duplicati.CommandLine.exe help</code>.</p>
+<p><img alt="" src="../ss_gethelp_01.png" /></p>
+<p>To get help about a specific topic, add it to the help command. So if you need help about the <code>find</code> command, type <code>Duplicati.CommandLine.exe help find</code>, which will return the following result:</p>
+<p><img alt="" src="../ss_gethelp_02.png" /></p>
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_info.png" /> The special help topic <code>example</code> will show a few examples of how the Commandline tool should be used to perform some simple operations.<br />
+To show the examples, type <code>Duplicati.CommandLine.exe help example</code>.</p>
+</blockquote>
+<hr />
+<h2 id="the-backup-command">The BACKUP command<a class="headerlink" href="#the-backup-command" title="Permanent link">&para;</a></h2>
+<p>This is probably the most important command, after all Duplicati is a backup program. You can run a backup with the backup command using the following format:</p>
+<p><code>Duplicati.CommandLine.exe backup &lt;storage-URL&gt; "&lt;source-path&gt;" [&lt;options&gt;]</code></p>
+<p>The storage-URL should be specified in this format:</p>
+<p><code>protocol://username:password@hostname:port/path?backend_option1=value1&amp;backend_option2=value2</code></p>
+<p>Multiple source paths can be specified if they are separated by a space.</p>
+<p><code>username</code> ust not contain <code>:</code> and <code>password</code> must not contain <code>@</code>. If they do, specify username and password using <code>--auth-username</code> and <code>--auth-password</code>, or url-encode them.</p>
+<p>Add as many advanced options as needed, like <code>--passphrase</code> and <code>--dblock-size</code>.</p>
+<hr />
+<blockquote>
+<p><img alt="" src="../icon_info.png" /> Instead of composing the complete backup command yourself, including all advanced options, you can create a backup job in the Graphical User Interface, without scheduling it. Once completed, you can export the backup job to the command line, resulting in a Duplicati.CommandLine.exe backup command with all settings that you specified in the wizard. You can paste this generated command in your favorite task scheduler. For more information about creating a backup job in the Graphical User Interface, see <a href="03-using-the-graphical-user-interface/#creating-a-new-backup-job">Creating a new backup job</a>. For more information about exporting the backup job to the command line, see <a href="03-using-the-graphical-user-interface/#exporting-a-backup-job-configuration">Exporting a backup job configuration</a>.</p>
+</blockquote>
+<hr />
+<p>The Commandline equivalent of the backup job described in <a href="03-using-the-graphical-user-interface/#creating-a-new-backup-job">Creating a new backup job</a> is:</p>
+<div class="codehilite"><pre><span></span>Duplicati.CommandLine.exe backup &quot;ftp://myftpserver.com/Backup/Pictures?auth-username=Duplicati&amp;auth-password=backup&quot; &quot;C:\Users\User\Pictures&quot; --backup-name=&quot;Pictures Collection&quot; --dbpath=&quot;C:\Users\User\DuplicatiCanary\data\LFYXSFKFFN.sqlite&quot; --encryption-module=&quot;aes&quot; --compression-module=&quot;zip&quot; --dblock-size=&quot;50mb&quot; --keep-time=&quot;3M&quot; --passphrase=&quot;%@/%78kUPKlZtz&quot; --skip-files-larger-than=&quot;2GB&quot; --default-filters=&quot;Windows&quot; --exclude-files-attributes=&quot;temporary&quot; --disable-module=&quot;console-password-input&quot; --exclude=&quot;desktop.ini&quot;
+</pre></div>
+
+
+<h2 id="the-restore-command">The RESTORE command<a class="headerlink" href="#the-restore-command" title="Permanent link">&para;</a></h2>
+<p>The <code>restore</code> command can restore files from a specific restore point the local system. Use the following format:</p>
+<p><code>Duplicati.CommandLine.exe restore &lt;storage-URL&gt; ["&lt;filename&gt;"] [&lt;options&gt;]</code></p>
+<p>This will restore <code>&lt;filename&gt;</code> to its original location. If the specified filename exists already, a timestamp will be added to the filename. If you want to restore all files, use "*" or leave the filename empty.</p>
+<p>Some advanced options frequently used with restore operations are:</p>
+<ul>
+<li><code>--overwrite=&lt;boolean&gt;</code><br />
+Overwrites existing files.</li>
+<li><code>--restore-path=&lt;string&gt;</code><br />
+Restores files to <restore-path> instead of their original destination. Top folders are removed if possible.</li>
+<li><code>--time=&lt;time&gt;</code><br />
+Restore files that are older than the specified time.</li>
+<li><code>--version=&lt;int&gt;</code><br />
+Restore files from a specific backup.</li>
+</ul>
+<h2 id="the-find-command">The FIND command<a class="headerlink" href="#the-find-command" title="Permanent link">&para;</a></h2>
+<p>This command is used to check what's in your backup. It can show a list of all backups, or list occurrences of a specific file (or files when using wildcards or a regular expression).</p>
+<p>Usage format for the <code>find</code> command is:</p>
+<p><code>Duplicati.CommandLine.exe find &lt;storage-URL&gt; ["&lt;filename&gt;"] [&lt;options&gt;]</code></p>
+<p>If <code>&lt;filename&gt;</code> is specified, all occurrences of <code>&lt;filename&gt;</code> in the backup are listed. <code>&lt;filename&gt;</code> can contain <code>*</code> and <code>?</code> as wildcards. File names in <code>[</code>brackets<code>]</code> are interpreted as regular expression. Latest backup is searched by default. If entire path is specified, all available versions of the file are listed. If no <code>&lt;filename&gt;</code> is specified, a list of all available backups is shown.</p>
+<p>Useful advanced options are:</p>
+<ul>
+<li><code>--time=&lt;time&gt;</code><br />
+Shows what the files looked like at a specific time. Absolute and relative times can be specified.</li>
+<li><code>--version=&lt;int&gt;</code><br />
+Shows what the files looked like in a specific backup. If no version is specified, the latest backup (version=0) will be used. If nothing is found, older backups will be searched automatically.</li>
+<li><code>--include=&lt;string&gt;</code><br />
+Reduces the list of files in a backup to those that match the provided string. This is applied before the search is executed.</li>
+<li><code>--exclude=&lt;string&gt;</code><br />
+Removes matching files from the list of files in a backup. This is applied before the search is executed.</li>
+<li><code>--all-versions=&lt;boolean&gt;</code><br />
+Searches in all backup sets, instead of just searching the latest.</li>
+</ul>
+<h2 id="the-compare-command">The COMPARE command<a class="headerlink" href="#the-compare-command" title="Permanent link">&para;</a></h2>
+<p>This is a useful command that shows the differences between two backup versions. The versions do not need to be subsequent, you can compare any two backup versions. If no versions are given, changes are shown between the two latest backups. The versions can either be timestamps or backup version numbers. If only one version is given, the most recent backup is compared to that version. Usage:</p>
+<p><code>Duplicati.CommandLine.exe compare &lt;storage-URL&gt; [&lt;base-version&gt;] [&lt;compare-to&gt;] [&lt;options&gt;]</code></p>
+<p>Some advanced options that can be used with the <code>compare</code> command:</p>
+<ul>
+<li><code>--verbose</code><br />
+Shows names of files</li>
+<li><code>--include=&lt;filter&gt;</code><br />
+Adds an include filter (for verbose output)</li>
+<li><code>--exclude=&lt;filter&gt;</code><br />
+Adds an exclude filter (for verbose output)</li>
+</ul>
+<h2 id="the-test-command">The TEST command<a class="headerlink" href="#the-test-command" title="Permanent link">&para;</a></h2>
+<p>After a backup operation, some backup files are verified by downloading them and check if the contents of these files is what Duplicati expects. This automatic verification after each backup operation can be disabled. To be able to check the integrity of the backup files, use the <code>test</code> command. Usage:</p>
+<p><code>Duplicati.CommandLine.exe test &lt;storage-URL&gt; &lt;samples&gt; [&lt;options&gt;]</code></p>
+<p>Verifies integrity of a backup. A random sample of dlist, dindex, dblock files is downloaded, decrypted and the content is checked against recorded size values and data hashes. <code>&lt;samples&gt;</code> specifies the number of samples to be tested. If "all" is specified, all files in the backup will be tested. This is a rolling check, i.e. when executed another time different samples are verified than in the first run. A sample consists of 1 dlist, 1 dindex, 1 dblock.</p>
+<p>Suggested advanced options:</p>
+<ul>
+<li><code>--time=&lt;time&gt;</code><br />
+Checks samples from a specific time.</li>
+<li><code>--version=&lt;int&gt;</code><br />
+Checks samples from specific versions. Delimiters are <code>,</code> and <code>-</code>.</li>
+<li><code>--full-remote-verification</code><br />
+Checks the internal structure of each file instead of just verifying the file hash.</li>
+</ul>
+<h2 id="the-compact-command">The COMPACT command<a class="headerlink" href="#the-compact-command" title="Permanent link">&para;</a></h2>
+<p>Old data is not deleted immediately as in most cases only small parts of a dblock file are old data. When the amount of old data in a dblock file grows it might be worth to replace it. This is especially the case when the number of dblock files and thus the required storage space can be reduced. When backups are frequently made and only few files have changed, the uploaded dblock files are small. At some point it might make sense to replace a large number of small files with one large file. This is what compacting does. Usage:</p>
+<p><code>Duplicati.CommandLine.exe compact &lt;storage-URL&gt; [&lt;options&gt;]</code></p>
+<p>A few advanced options to use with the <code>compact</code> command:</p>
+<ul>
+<li><code>--small-file-max-count=&lt;int&gt;</code><br />
+The maximum allowed number of small files.</li>
+<li><code>--small-file-size=&lt;int&gt;</code><br />
+Files smaller than this size are considered to be small and will be compacted with other small files as soon as there are <code>&lt;small-file-max-count&gt;</code> of them. <code>--small-file-size=20</code> means 20% of <code>&lt;dblock-size&gt;</code>.</li>
+<li><code>--threshold=&lt;percent_value&gt;</code><br />
+The amount of old data that a dblock file can contain before it is considered to be replaced.</li>
+</ul>
+<h2 id="the-delete-command">The DELETE command<a class="headerlink" href="#the-delete-command" title="Permanent link">&para;</a></h2>
+<p>Marks old data deleted and removes outdated dlist files. A backup is deleted when it is older than <code>&lt;keep-time&gt;</code> or when there are more newer versions than <code>&lt;keep-versions&gt;</code>. Data is considered old, when it is not required from any existing backup anymore. Usage:</p>
+<p><code>Duplicati.CommandLine.exe delete &lt;storage-URL&gt; [&lt;options&gt;]</code></p>
+<p>Some advanced options:</p>
+<ul>
+<li><code>--dry-run</code><br />
+Performs the operation, but does not write changes to the local database or the remote storage.</li>
+<li><code>--keep-time=&lt;time&gt;</code><br />
+Marks data outdated that is older than <code>&lt;time&gt;</code>.</li>
+<li><code>--keep-versions=&lt;int&gt;</code><br />
+Marks data outdated that is older than <int> versions.</li>
+<li><code>--version=&lt;int&gt;</code><br />
+Deletes all files that belong to the specified version(s).</li>
+<li><code>--allow-full-removal</code><br />
+Disables the protection against removing the final fileset.</li>
+</ul>
+<h2 id="the-purge-command">The PURGE command<a class="headerlink" href="#the-purge-command" title="Permanent link">&para;</a></h2>
+<p>Purges (removes) files from remote backup data. This command can either take a list of filenames or use the filters to choose which files to purge. The purge process creates new filesets on the remote destination with the purged files removed, and will start the compacting process after a purge. By default, the matching files are purged in all versions, but this can be limited by choosing one or more versions. To test what will happen, use the <code>--dry-run</code> flag. Usage:</p>
+<p><code>Duplicati.CommandLine.exe purge &lt;storage-URL&gt; &lt;filenames&gt; [&lt;options&gt;]</code></p>
+<p>Useful advanced options:</p>
+<ul>
+<li><code>--dry-run</code><br />
+Performs the operation, but does not write changes to the local database or the remote storage.</li>
+<li><code>--version=&lt;int&gt;</code><br />
+Selects specific versions to purge from, multiple versions can be specified with commas.</li>
+<li><code>--time=&lt;time&gt;</code><br />
+Selects a specific version to purge from.</li>
+<li><code>--no-auto-compact</code><br />
+Performs a compact process after purging files</li>
+<li><code>--include=&lt;filter&gt;</code><br />
+Selects files to purge, using filter syntax</li>
+</ul>
+<h2 id="the-repair-command">The REPAIR command<a class="headerlink" href="#the-repair-command" title="Permanent link">&para;</a></h2>
+<p>Tries to repair the backup. If no local database is found or the database is empty, the database is re-created with data from the storage. If the database is in place but the remote storage is corrupt, the remote storage gets repaired with local data (if available). Usage: </p>
+<p><code>Duplicati.CommandLine.exe repair &lt;storage-URL&gt; [&lt;options&gt;]</code></p>
+<h2 id="the-affected-command">The AFFECTED command<a class="headerlink" href="#the-affected-command" title="Permanent link">&para;</a></h2>
+<p>Returns a report explaining what backup sets and files are affected by a remote file. You can use this option to see what source files are affected if one or more remote files are damaged or deleted. The advanced option <code>dbpath</code> is required to specify the location of the local database. Usage:</p>
+<p><code>Duplicati.CommandLine.exe affected &lt;storage-URL&gt; &lt;remote-filename&gt; [&lt;remote-filenames&gt;] [&lt;options&gt;]</code></p>
+<h2 id="the-list-broken-files-command">The LIST-BROKEN-FILES command<a class="headerlink" href="#the-list-broken-files-command" title="Permanent link">&para;</a></h2>
+<p>Checks the database for missing data that cause files not not be restoreable. Files can become unrestoreable if remote data files are defect or missing. Use the list-broken-files command to see what the purge-broken-files command will remove. Usage:</p>
+<p><code>Duplicati.CommandLine.exe list-broken-files &lt;storage-URL&gt; [&lt;options&gt;]</code></p>
+<h2 id="the-purge-broken-files-command">The PURGE-BROKEN-FILES command<a class="headerlink" href="#the-purge-broken-files-command" title="Permanent link">&para;</a></h2>
+<p>Removes all files from the database and remote storage that are no longer restoreable. Use this operation with caution, and only if you cannot recover the missing remote files, but want to continue a backup. Even with missing remote files, it may be possible to restore parts of the files that will be removed with this command. Usage:</p>
+<p><code>Duplicati.CommandLine.exe purge-broken-files &lt;storage-URL&gt; [&lt;options&gt;]</code></p>
+<p>Recommended advanced option before actually purge the files:</p>
+<ul>
+<li><code>--dry-run</code><br />
+Performs the operation, but does not write changes to the local database or the remote storage.</li>
+</ul>
+<h2 id="the-create-report-command">The CREATE-REPORT command<a class="headerlink" href="#the-create-report-command" title="Permanent link">&para;</a></h2>
+<p>Analyses the backup and prepares a report with anonymous information. This report can be sent to the developers for a better analysis in case something went wrong. Usage:</p>
+<p><code>Duplicati.CommandLine.exe create-report &lt;storage-URL&gt; &lt;output-file&gt; [&lt;options&gt;]</code></p>
+<h2 id="the-test-filters-command">The TEST-FILTERS command<a class="headerlink" href="#the-test-filters-command" title="Permanent link">&para;</a></h2>
+<p>Scans the source files and tests against the filters specified, the console output shows which files and folders are examined and the result. Usgae:</p>
+<p><code>Duplicati.CommandLine.exe test-filters &lt;source-path&gt; [&lt;options&gt;]</code></p>
+<h2 id="the-system-info-command">The SYSTEM-INFO command<a class="headerlink" href="#the-system-info-command" title="Permanent link">&para;</a></h2>
+<p>Issue this following command to see a variety of system information relevant to Duplicati. Usage:</p>
+<p><code>Duplicati.CommandLine.exe system-info</code></p>
+<h2 id="the-send-mail-command">The SEND-MAIL command<a class="headerlink" href="#the-send-mail-command" title="Permanent link">&para;</a></h2>
+<p>Duplicati can send email notifications after each operation. Use the send-mail command to test this. Usage:</p>
+<p><code>Duplicati.CommandLine.exe send-mail --send-mail-to=&lt;email-address&gt; [&lt;options&gt;]</code></p>
+<p>Advanced options you can use with this command:</p>
+<ul>
+<li><code>--send-mail-to=&lt;email-address&gt;</code><br />
+Send an email to <email-address> after a backup. Valid formats are <code>Name &lt;test@example.com&gt;</code>, <code>Other &lt;test2@example.com&gt;</code>, <code>test3@example.com</code>. Multiple addresses must be separated with a comma.</li>
+<li><code>--send-mail-from=&lt;email-address&gt;</code><br />
+This is the sender address of the email that is sent.</li>
+<li><code>--send-mail-subject=&lt;subject&gt;</code><br />
+This is the subject line of the email that is sent. E.g. this can be <code>"Duplicati %OPERATIONNAME% Report"</code></li>
+<li><code>--send-mail-body=&lt;body&gt;</code><br />
+The content of the email message. This should contain <code>"%RESULT%"</code>.</li>
+<li><code>--send-mail-url=&lt;smtp-url&gt;</code><br />
+A URL to connect to an SMTP server to send out an email. Example: <code>"tls://smtp.example.com:587"</code>, <code>"smtps://smtp.example.com:465"</code> or <code>"smtp://smtp.example.com:25"</code>.</li>
+<li><code>--send-mail-username=&lt;username&gt;</code><br />
+Required username to authenticate with SMTP server.</li>
+<li><code>--send-mail-password=&lt;password&gt;</code><br />
+Required password to authenticate with SMTP server.</li>
+<li><code>--send-mail-level=&lt;level&gt;</code><br />
+When email messages are sent: <code>Success</code>, <code>Warning</code>, <code>Error</code> are possible.</li>
+<li><code>--send-mail-any-operation=true</code><br />
+Also send emails after other operations like restore etc.</li>
+</ul>
+<p>Allowed placeholders are:
+<em> <code>%PARSEDRESULT%</code><br />
+The parsed result op the operation: <code>Success</code>, <code>Warning</code>, <code>Error</code>
+</em> <code>%RESULT%</code><br />
+When used in the body, this is the result/log of the backup,<br />
+When used in the subject line, this is the same as <code>%PARSEDRESULT%</code>
+<em> <code>%OPERATIONNAME%</code><br />
+The name of the operation, usually <code>backup</code>, but could also be <code>restore</code> etc.
+</em> <code>%REMOTEURL%</code><br />
+The backend url.
+* <code>%LOCALPATH%</code><br />
+The path to the local folders involved (i.e. the folders being backed up).</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

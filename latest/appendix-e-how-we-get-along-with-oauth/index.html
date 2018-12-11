@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://backup.e-notariado.org.br/appendix-e-how-we-get-along-with-oauth/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>How we get along with OAuth - Manual do Módulo Agente do Backup e-notariado</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-XXXXXXXX-X', 'auto');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">Manual do Módulo Agente do Backup e-notariado</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../01-introduction/">Introdução</a>
+</li>
+                                    
+<li >
+    <a href="../02-installation/">Instalação</a>
+</li>
+                                    
+<li >
+    <a href="../03-using-the-graphical-user-interface/">Usando a Interface Gráfica de Usuário</a>
+</li>
+                                    
+<li >
+    <a href="../04-using-duplicati-from-the-command-line/">Usando o Módulo Agente pela linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../05-storage-providers/">Provedores de Armazenamento</a>
+</li>
+                                    
+<li >
+    <a href="../06-advanced-options/">Opções Avançadas</a>
+</li>
+                                    
+<li >
+    <a href="../07-other-command-line-utilities/">Outras utilidades da linha de comando</a>
+</li>
+                                    
+<li >
+    <a href="../08-disaster-recovery/">Recuperação após desastres</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Artigos <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../appendix-a-how-the-backup-process-works/">Como o processo de backup funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-b-how-the-restore-process-works/">Como o processo de restauração funciona</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-c-choosing-sizes-in-duplicati/">Escolhendo tamanhos corretos</a>
+</li>
+                                    
+<li >
+    <a href="../appendix-d-filters/">Filtros</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../appendix-f-license-agreement/">Licença</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#how-we-get-along-with-oauth">How we get along with OAuth</a></li>
+            <li><a href="#the-issue-with-oauth">The Issue with OAuth</a></li>
+            <li><a href="#how-it-works-in-nine-steps">How it works in nine steps</a></li>
+            <li><a href="#what-if-the-service-gets-hacked">What if the service gets hacked?</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="how-we-get-along-with-oauth">How we get along with OAuth<a class="headerlink" href="#how-we-get-along-with-oauth" title="Permanent link">&para;</a></h1>
+<h3 id="the-issue-with-oauth">The Issue with OAuth<a class="headerlink" href="#the-issue-with-oauth" title="Permanent link">&para;</a></h3>
+<p>Duplicati is a backup tool running in the background. This usually means that there is no way to prompt users for input easily. This gets even more important when the command line interface is used to run backup scripts automatically and unattended.</p>
+<p>Unfortunately, OneDrive and other services are designed to work with OAuth. OAuth is designed to grant access for a limited amount of time after users have authenticated correctly. This is not well suited for background services such as Duplicati which require to get access permissions regularly without the users being prompted to login.</p>
+<p>To remedy this, we provide a service for Duplicati 2.0 users. The service handles the requirements for the OAuth login, and then uses this service to grant Duplicati access to the stored data. This service does neither store your OneDrive username nor your password. It is a bit difficult to explain how the service is working in details. But let's try!</p>
+<p>With OAuth, the users start on a Duplicati page to set up a new connection. There users find a link which redirects to the OneDrive login page. After the users log in, OneDrive displays the desired access and the application name. The users accept this and they are redirected back to the Duplicati page. When this happens, an exchange is performed in the background where Duplicati and OneDrive exchange tokens. The token grants Duplicati access for a limited amount of time.</p>
+<p>Furthermore, OneDrive allows users to block an application entirely. That is why OneDrive needs an "app secret" that identifies the application. This secret cannot be shared with anyone, so it stays entirely in the Duplicati service. Leaking this "app secret" would allow an attacker to impersonate Duplicati. This means, putting the app secret into the Duplicati application is a no-go.</p>
+<p>When Duplicati sends the "app secret" to OneDrive, it responds with a unique numeric Windows Live user id (CID), and a "refresh token". Duplicati then generates a random authid token, which is used to encrypt the refresh token and CID inside the service. When a backup starts, Duplicati sends the authid token to the service, which decrypts the refresh token in-memory. The refresh token is then sent to OneDrive together with the "app secret". OneDrive grants an "access token" which is valid for one hour. This access token is returned to the Duplicati instance and used to upload and download files. If the backup takes longer than an hour, the process is repeated automatically.</p>
+<p>This slightly complicated multi-step approach protects your Windows Live login details, so you never share your actual username (email) nor your password with Duplicati.</p>
+<p>On top of this, the service encrypts all information completely so it cannot be used without the authid token. This ensures that an attacker needs to listen in on a live session to obtain the authid and access token. A full exposure of the service database is no risk to your data alone. You can create as many authid tokens as you like, and you can always revoke an authid token on the service if you fear it has been compromised.</p>
+<h3 id="how-it-works-in-nine-steps">How it works in nine steps<a class="headerlink" href="#how-it-works-in-nine-steps" title="Permanent link">&para;</a></h3>
+<ol>
+<li>To configure a OneDrive connection the user follows a link in the UI that requests access to OneDrive from "the service".</li>
+<li>To grant access to OneDrive user has to confirm by logging in at OneDrive.</li>
+<li>OneDrive then connects to the service and provides a user CID and a refresh-token.</li>
+<li>The service stores the CID as well as the refresh-token encrypted. The service also generates an authid token for that user. The authid token is presented to the user and manually copied into Duplicati. The connection has been set up now.</li>
+<li>When Duplicati wants to establish a connection, it sends the authid token to the service . the service uses the provided password to decrypt the refresh-token.</li>
+<li>The refresh-token is sent to OneDrive along with the app secret.</li>
+<li>OneDrive checks the refresh-token and gives back a one-hour access token that grants access to the real user account.</li>
+<li>The service hands back the one-hour-access-token to Duplicati.</li>
+<li>Duplicati uses the one-hour-access-token to connect to OneDrive. As soon as the connection fails, it requests a new token the same way the first one-hour-access-token was requested.</li>
+</ol>
+<h3 id="what-if-the-service-gets-hacked">What if the service gets hacked?<a class="headerlink" href="#what-if-the-service-gets-hacked" title="Permanent link">&para;</a></h3>
+<p>Then the hackers get a lot of blobs with encrypted refresh-tokens. Without the users' authid, the refresh-tokens are useless. Without the service's app secret, the authid's are useless. With one of them being useless, the other part is useless as well. In summary, if the service gets hacked, the hackers get a lot of useless stuff.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
