@@ -1,24 +1,25 @@
+# Recuperação após desastres
 
-## Definition of a disaster
+## Definição de um desastre
 
-This chapter describes how to recover from a disaster. Before we continue, we first have to define what a disaster actually is. Two categories can be distinguished:
+Este capítulo descreve como se recuperar após um desastre. Antes de continuarmos, temos que primeiramente definir o que um desastre realmente é. Duas categorias podem ser diferenciadas:
 
-* Loss or corruption of source files or the complete source system.
-* Missing or corrupted backup files.
+* Perda ou corrupção de arquivos de origem ou o sistema de origem como um todo (como a perda da máquina por exemplo).
+* Arquivos de backup faltando ou corruptos.
 
-How to restore files to the original location of the same system and how to restore files from a consistent backup to a new computer is described in [Restoring files from a backup](03-using-the-graphical-user-interface/#restoring-files-from-a-backup) and [Restoring files if your Duplicati installation is lost](03-using-the-graphical-user-interface/#restoring-files-if-your-duplicati-installation-is-lost).
+Como recuperar arquivos para a localização original do mesmo sistema e como recuperar arquivos de um backup consistente para um novo backup são descritos em [Restaurando arquivos de um backup](#) e [Restaurando arquivos se sua instalação do Módulo Agente foi perdida](#).
 
-This chapter describes the process of restoring as much as possible from a backup that is inconsistent due to corrupted or missing files at the backend, without access to the source files and the Duplicati setup.
+Este capítulo descreve o processo de restaurar o tanto quanto for possível de um backup que está inconsistente devido a arquivos corruptos ou desaparecidos no sistema remoto, sem acesso aos arquivos de origem e a instalação do Módulo Agente.
 
-Usually you can install Duplicati on any computer and point to the location that contains your backup to restore files. Duplicati will try to automatically recover from problems it finds, but is there is significant damage in your backup files, the restore process may fail, resulting in aborting the restore operation, leaving files unrecovered that are potentially restorable. In this situation you can use the `Duplicati.CommandLine.RecoveryTool.exe` to restore files that are not affected by the backup corruption. You can use this tool to perform the operations manually that are normally done automatically by the standard tools.
+Normalmente você pode instalar a aplicação em qualquer computador, cadastrá-la novamente e então na seção "Restaurar do e-notariado" é possível recuperar os arquivos e a aplicação irá tentar resolver quaisquer problemas que encontrar. Porém se há um dano significativo nos arquivos de backup localizados remotamente, a restauração pode falhar, resultando na abortação da operação de restauraão e deixando arquivos potencialmente restauráveis sem serem recuperados. Nesta situação você pode usar a ferramenta de recuperação `Duplicati.CommandLine.RecoveryTool.exe` para recuperar arquivos que não foram afetados pela corrupção sofrida no backup. Você pode usar esta ferramenta para realizar manualmente as operações normalmente feitas automaticamente.
 
-## Test scenario
+## Cenário de testes
 
-To explain the working of the `Duplicati.CommandLine.RecoveryTool.exe`, this setup is assumed:
+Para explicar como a ferramenta de recuperação funciona, a seguinte configuração é assumida:
 
-The computer that contained the source files had 4 backup versions of the My Pictures folder. This computer, including Duplicati installation and picture files are assumed to be lost.
+O computador que continha os arquivos de origem possuía 4 versões de um backup da pasta "Minhas Imagens". Este computador, incluindo sua instalação da aplicação e suas imagens, foi perdido.
 
-The backup location is an FTP server. The default Upload Volume size of 50MB is decreased to 10MB, resulting in more, but smaller files, which makes more sense for this example. After 4 backup operations, the files at the backend look like this:
+O backup, feito usando o sistema do e-notariado, possuía um tamanho de carregamento diminuído de 50MB (o padrão) para 10MB, resultando em arquivos menores porém em maior quantidade, o que faz sentido para este exemplo. Depois de 4 execuções do backup, os arquivos no sistema do e-notariado estão organizados da seguinte maneira:
 
 ```nohighlight
 10,453,901  duplicati-b69a2a32a50bb4c6d8780389efdbf7442.dblock.zip.aes
@@ -73,19 +74,19 @@ The backup location is an FTP server. The default Upload Volume size of 50MB is 
      9,901  duplicati-20171109T100815Z.dlist.zip.aes
 ```
 
-There is one .dlist file for each backup version. The data itself is stored in a number of .dblock files. Each .dblock file has an accompanying .dindex file. This is a consistent backup, but in this test scenario, some files intentionally are corrupted by replacing the contents with random data and by removing a .dblock file.
+Existe um arquivo .dlist para cada versão do backup. Os dados são armazenados em vários arquivos .dblock. Cada arquivo .dblock possui um arquivo .dindex que o acompanha. Este é um backup consistente, porém para este cenário de testes, alguns arquivos foram intencionalmente corrompidos colocando dados aleatórios neles e também removemos um arquivo .dblock.
 
-## Inventory of files that are going to be corrupted
+## Inventário de arquivos que serão corrrompidos
 
-Prior to corrupting the consistent backup, we can inventory what the consequences are if these files get lost. You can use the Duplicati command `affected` to see which files are affected by a remote file. The `affected` command needs the local database, so you can perform this operation only if you have a fully working Duplicati installation for this backup job. See [The AFFECTED command](04-using-duplicati-from-the-command-line/#the-affected-command) for more information.
+Antes de corromper o backup consistente, nos podemos realizar o inventário de quais serão as consequências se estes arquivos forem perdidos. É possível usar o comando `affected` para ver quais arquivos são afetados por um arquivo remoto. O comando `affected` precisa da base de dados local, então só é possível realizar esta operaçãos se você possuir uma instalação completamente funcional desta aplicação com este backup configurado. Veja [O comando AFFECTED](04-using-duplicati-from-the-command-line/#the-affected-command) para mais informações.
 
-The first command returns which source files need information from the remote file `duplicati-b69a2a32a50bb4c6d8780389efdbf7442.dblock.zip.aes`.
+O primeiro comando retorna quais arquivos de origem precisam de informações do arquivo remoto chamado `duplicati-b69a2a32a50bb4c6d8780389efdbf7442.dblock.zip.aes`.
 
 ```nohighlight
 Duplicati.CommandLine.exe affected "ftp://myftpserver.com/Backup/Pictures?auth-username=Duplicati&auth-password=backup" duplicati-b69a2a32a50bb4c6d8780389efdbf7442.dblock.zip.aes --dbpath="C:\Users\User\DuplicatiCanary\data\WCHNJBICGG.sqlite" --full-result
 ```
 
-This command will return that all 4 backup versions need data from this file. These files are affected:
+Este comando irá retornar que todas as 4 versões de backup precisam de dados dentro deste arquivo. Os seguintes arquivos são afetados:
 
 ```nohighlight
 C:\Users\User\Pictures\file0001079221497.jpg  
@@ -94,20 +95,20 @@ C:\Users\User\Pictures\file0001141038889.jpg
 C:\Users\User\Pictures\file0001176452626.jpg
 ```
 
-The second command returns affected backup versions and source files for remote file `duplicati-b5f8cd40e22a54b5b988689370b8cde34.dblock.zip.aes`:
+O segundo comando retorna as versões de backup e os arquivos de origem relacionados ao arquivo remoto `duplicati-b5f8cd40e22a54b5b988689370b8cde34.dblock.zip.aes`:
 
 ```nohighlight
 Duplicati.CommandLine.exe affected "ftp://myftpserver.com/Backup/Pictures?auth-username=Duplicati&auth-password=backup" duplicati-b5f8cd40e22a54b5b988689370b8cde34.dblock.zip.aes --dbpath="C:\Users\User\DuplicatiCanary\data\WCHNJBICGG.sqlite" --full-result</span></span>
 ```
 
-Only the last 2 backup versions are affected (version 0 and 1), These 2 files cannot be restored if this remote file is missing or corrupted:
+Apenas os últimos dois backups são afetados (versões 0 e 1). Estes dois arquivos não são possíveis de serem restaurados se este arquivo remoto for perdido ou corrompido:
 
 ```nohighlight
 C:\Users\User\Pictures\file451264266022.jpg  
 C:\Users\User\Pictures\file621250696198.jpg
 ```
 
-**Conclusion:** if the 2 remote files mentioned above are not available, the 6 picture files should be considered lost, but with the Duplicati Recoverytool all other files in the backup should be recoverable.
+**Conclusão:** Se os 2 arquivos remotos mencionados acima não estiverem disponíveis, as 6 imagens podem ser consideradas perdidas, mas com a ferramenta de recuperação todos os outros arquivos no backup podem ser restaurados.
 
 ## Making the backup inconsistent
 
